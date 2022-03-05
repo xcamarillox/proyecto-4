@@ -2,9 +2,12 @@
     "name": "appetecible",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "./src/scripts/index.js",
+    "source": "src/index.html",
+    "_comment": "'source': 'src/index.html' not created on init, its for Parcel setup",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "parcel",
+        "build": "parcel build src/index.html --public-url ./"
     },
     "keywords": [],
     "author": "",
