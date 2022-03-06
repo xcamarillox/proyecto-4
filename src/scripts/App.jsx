@@ -1,3 +1,7 @@
+
+import SignForm from './SignForm.jsx';
+import Booking1 from './Booking1.jsx';
+
 function formatName(user) {
     return user.firstName + ' ' + user.lastName;
   }
@@ -9,9 +13,7 @@ function formatName(user) {
   
   const App =  () => 
     (
-        <h1>
-          Hello, {formatName(user)}!
-        </h1>
+        <Booking1/>
     );
   
 export default App
