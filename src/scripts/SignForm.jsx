@@ -1,6 +1,9 @@
 
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+import Booking3 from './Booking3.jsx';
 
 const Booking1 =  (props) => 
 (
@@ -8,32 +11,70 @@ const Booking1 =  (props) =>
       <h3 className="text-center">{props.isSignUpMode ? "REGISTRO" : "ACCESO"}</h3>
       { props.isSignUpMode && 
         <div>
-          <Form.Group className="mb-2" controlId="nombre">
-            <Form.Label>Nombre(s)</Form.Label>
-            <Form.Control placeholder="Ingresa tu(s) nombre(s)" />
-          </Form.Group>
-          <Form.Group className="mb-2" controlId="apellido">
-            <Form.Label>Apellido(s)</Form.Label>
-            <Form.Control placeholder="Ingresa tu(s) apellidos(s)" />
-          </Form.Group>
+          <Row>
+            <Col md={2}>
+              <Form.Group className="mb-2 title" controlId="title">
+                  <Form.Label>Titulo</Form.Label>
+                  <Form.Select aria-label="Default select example">
+                    <option value="1">Sr.</option>
+                    <option value="2">Sra.</option>
+                    <option value="3">Srita.</option>
+                    <option value="2">Dr.</option>
+                  </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-2" controlId="name">
+                  <Form.Label>Nombre(s)</Form.Label>
+                  <Form.Control placeholder="Ingresa tu(s) nombre(s)" />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-2" controlId="lastName">
+                  <Form.Label>Apellido(s)</Form.Label>
+                  <Form.Control placeholder="Ingresa tu(s) apellidos(s)" />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={2}>
+              <Form.Group className="mb-2" controlId="countryCode">
+                <Form.Label>Código de País</Form.Label>
+                <Form.Control placeholder="+52" />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-2" controlId="mobileNumber">
+                <Form.Label>Numero Celular</Form.Label>
+                <Form.Control placeholder="1234567890" />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-2" controlId="lineType">
+                  <Form.Label>Tipo de Línea</Form.Label>
+                  <Form.Select aria-label="Default select example">
+                    <option value="1">Celular</option>
+                    <option value="2">Terrestre</option>
+                  </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
         </div>
       }
-      <Form.Group className="mb-2" controlId="email">
-        <Form.Label>E-mail</Form.Label>
-        <Form.Control type="email" placeholder="Ingresa tu E-mail" />
-        { props.isSignUpMode && 
-        <Form.Text className="text-muted">
-          No compartiremos tu correo con nadie (muy probablemente).
-        </Form.Text>
-        }
-      </Form.Group>
-
+      <Row>
+        <Col>
+          <Form.Group className="mb-2" controlId="email">
+            <Form.Label>E-mail</Form.Label>
+            <Form.Control type="email" placeholder="Ingresa tu E-mail" />
+          </Form.Group>
+        </Col>
+      </Row>
       <Form.Group className="mb-2" controlId="password">
         <Form.Label>Contraseña</Form.Label>
         <Form.Control type="password" placeholder="Ingresa tu Contraseña" />
       </Form.Group>
       { !props.isSignUpMode && 
-      <Form.Group className="mb-2" controlId="recuerdame">
+      <Form.Group className="mb-2" controlId="rememberMe">
         <Form.Check type="checkbox" label="Recuerdame" />
       </Form.Group>
       }

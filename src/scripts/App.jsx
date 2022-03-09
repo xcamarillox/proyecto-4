@@ -1,19 +1,13 @@
 
 import SignForm from './SignForm.jsx';
 import Booking1 from './Booking1.jsx';
+import Booking2 from './Booking2.jsx';
+import Booking3 from './Booking3.jsx';
 
-function formatName(user) {
-    return user.firstName + ' ' + user.lastName;
-  }
-  
-  const user = {
-    firstName: 'Hello',
-    lastName: 'World'
-  };
-  
-  const App =  () => 
+
+const App =  () => 
     (
-        <Booking1/>
+        <Booking2 isSignUpMode={false}/>
     );
   
 export default App
