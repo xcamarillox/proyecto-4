@@ -9,7 +9,7 @@ import FormControl from "react-bootstrap/FormControl"
 const Booking3 =  (props) => 
 (
   <Form>
-    <h3 className="text-center">Reservaciones</h3>
+    {/* <h3 className="text-center">Reservaciones</h3> */}
     <Row>
       <Col md={2}>
         <Form.Group className="mb-2 title" controlId="title">
