@@ -19,7 +19,7 @@ useEffect(() => {
 return (
 <Navbar  className="navbar-animation" collapseOnSelect fixed="top" bg={bg} variant="dark" expand="lg">
   <Container>
-  <Navbar.Brand href="#home" className="titulo fs-2">APPETITOSO</Navbar.Brand>
+  <Navbar.Brand href="#home" className="titulo"><h1>APPETITOSO</h1></Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">

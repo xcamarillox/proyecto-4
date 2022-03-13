@@ -12,17 +12,33 @@ textarea {
     resize: none;
 }
 
-.img-overlay-container {
+home-cantainer {
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-color: black;
 }
 
-.img-cover {
-    object-fit: cover;
+.jumbotron-container {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/pizza.jpg");
+    background-size: cover;
+    overflow: hidden;
+}
+
+.jumbotron-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    align-items: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100%;
+}
+
+.jumbotron-overlay * {
+    margin: 20px 60px;
 }
 
 .navbar-animation {
@@ -33,16 +49,12 @@ textarea {
     color: white !important;
 }
 
-.navbar a.titulo {
+.navbar .titulo {
     letter-spacing: 2px;
 }
 
 .navbar a.dropdown-item {
     color: black !important;
-}
-
-home-cantainer {
-    width: 100%;
 }
 
 .slices-container {
@@ -56,6 +68,12 @@ home-cantainer {
     flex: 0 1 100%;
     height: 100%;
     align-items: center;
+}
+
+.slice img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .slice h3,

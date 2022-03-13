@@ -22,13 +22,13 @@ let showModalData = {
 return (
     <div className="home-cantainer">
         <MyNavBar />
-        <Jumbotron /> 
+        <Jumbotron book={handleShowModal} /> 
         <OurStory />  
         <OurMenu /> 
         <Bookings book={handleShowModal}/>
         <Menu />
         <ContactUs />
-        <MyModal mode={modalMode} display={showModalData} />
+        <MyModal mode={modalMode} display={showModalData} /> 
     </div>
 )
 

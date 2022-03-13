@@ -24,7 +24,7 @@ const Menu =  (props) => {
             <div className="menu-footer">
                 <div>
                     <p>Nos reservamos el derecho de cambiar los ingredientes enumerados anteriormente en función de la disponibilidad. (v) = vegetariano (vg) = vegano.</p>
-                    <Button variant="secondary" size="lg">
+                    <Button variant="outline-dark" size="lg">
                         Ordenar
                     </Button>
                 </div>

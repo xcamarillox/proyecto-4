@@ -1,4 +1,4 @@
-import pasta from "../../../assets/pasta.jpg"
+import kitchen from "../../../assets/kitchen.jpg"
 
 const OurStory =  () => {
     return (
@@ -11,7 +11,7 @@ const OurStory =  () => {
                 </div>
             </div>
             <div className="slice">
-                <img className="img-cover" src={pasta} alt=""/>
+                <img className="img-cover" src={kitchen} alt=""/>
             </div>
         </div>
     ) 
