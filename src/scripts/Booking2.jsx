@@ -53,7 +53,8 @@ return (
     <TableRow 
       hour={hour} 
       minIntervals={minIntervals} 
-      key={hour} isLast={index == hours.length - 1} 
+      key={hour} 
+      isLast={index == hours.length - 1} 
       onCellClick={onCellClick} 
     />
   ))}

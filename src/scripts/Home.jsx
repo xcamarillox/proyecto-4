@@ -1,6 +1,13 @@
 import MyNavBar from "./home-sections/MyNavBar";
 import MyModal from './MyModal.jsx';
 import Button from "react-bootstrap/Button";
+import Jumbotron from "./home-sections/Jumbotron";
+import OurStory from "./home-sections/OurStory"
+import OurMenu from "./home-sections/OurMenu"
+import Bookings from "./home-sections/Bookings"
+import Menu from "./home-sections/Menu"
+import ContactUs from "./home-sections/ContactUs"
+
 import { useState } from "react";
 
 const Home =  (props) => {
@@ -13,11 +20,14 @@ let showModalData = {
 }
 
 return (
-    <div>
+    <div className="home-cantainer">
         <MyNavBar />
-        <Button variant="primary" onClick={handleShowModal}>
-          Show Modal
-        </Button>
+        <Jumbotron /> 
+        <OurStory />  
+        <OurMenu /> 
+        <Bookings book={handleShowModal}/>
+        <Menu />
+        <ContactUs />
         <MyModal mode={modalMode} display={showModalData} />
     </div>
 )

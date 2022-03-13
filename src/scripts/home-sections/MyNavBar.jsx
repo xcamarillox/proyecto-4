@@ -3,15 +3,23 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
-
+import { useState, useEffect } from "react";
 
 const MyNavBar =  (props) => {
+let [bg, setBg] = useState("");
+
+useEffect(() => {
+  window.addEventListener("scroll", function(){
+    if (window.scrollY > 0) setBg("dark");
+    else setBg("");
+  })
+}, [])
 
 
 return (
-<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+<Navbar  className="navbar-animation" collapseOnSelect fixed="top" bg={bg} variant="dark" expand="lg">
   <Container>
-  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Brand href="#home" className="titulo fs-2">APPETITOSO</Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
