@@ -1,10 +1,10 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import SignForm from './SignForm.jsx';
+import SignForm from './modal-screens/SignForm.jsx';
 import { useState, useEffect } from "react";
-import Booking1 from './Booking1.jsx';
-import Booking2 from './Booking2.jsx';
-import Booking3 from './Booking3.jsx';
+import Booking1 from './modal-screens/Booking1.jsx';
+import Booking2 from './modal-screens/Booking2.jsx';
+import Booking3 from './modal-screens/Booking3.jsx';
 
 let MyModal = ({mode, display}) => {
   let [page, setPage] = useState(3);
