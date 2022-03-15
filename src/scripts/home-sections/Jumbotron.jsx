@@ -15,7 +15,12 @@ const Jumbotron =  (props) => {
                     <Button variant="outline-light" onClick={props.book} size="lg">
                         Reservar
                     </Button>
-                    <Button variant="outline-light"  size="lg">
+                    <Button variant="outline-light" size="lg"
+                        onClick={(e) => 
+                        {
+                            e.preventDefault();
+                            window.location.href='https://www.rappi.com.mx/';
+                        }}>
                         Ordenar
                     </Button>
                 </div>

@@ -4,10 +4,10 @@ import Button from "react-bootstrap/Button";
 const Menu =  (props) => {
     return (
         <div className="menu-container">
-            <div className="menu-header">
+            <div className="menu-header-footer">
                 <div>
                     <h3>Ordena</h3>
-                    <p>Puedes cenar en nuestro restaurante o pedir una pizza para llevar a través de <a href="https://www.rappi.com/">Rappi</a></p>
+                    <p>Puedes cenar en nuestro restaurante o pedir una pizza para llevar a través de <a href="https://www.rappi.com.mx/">Rappi</a></p>
                 </div>
             </div>
             <div className="menu-content">
@@ -21,10 +21,15 @@ const Menu =  (props) => {
                     </div>
                 ))}
             </div>
-            <div className="menu-footer">
+            <div className="menu-header-footer">
                 <div>
                     <p>Nos reservamos el derecho de cambiar los ingredientes enumerados anteriormente en función de la disponibilidad. (v) = vegetariano (vg) = vegano.</p>
-                    <Button variant="outline-dark" size="lg">
+                    <Button variant="outline-dark" size="lg"
+                        onClick={(e) => 
+                        {
+                            e.preventDefault();
+                            window.location.href='https://www.rappi.com.mx/';
+                        }}>
                         Ordenar
                     </Button>
                 </div>
