@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import SignForm from './modal-screens/SignForm.jsx';
+import SignForm from './modal-screens/SignForm';
 import { useState, useEffect } from "react";
 import Booking1 from './modal-screens/Booking1.jsx';
 import Booking2 from './modal-screens/Booking2.jsx';
