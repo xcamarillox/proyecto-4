@@ -4,7 +4,7 @@ const Blog =  () =>
       <div className="jumbotron-container">
             <div className="jumbotron-overlay">
                 <h1>La Vita Nostra</h1>
-                <span class="subheading">Un blog del estilo de vida culinario italiano</span>
+                <span className="subheading">Un blog del estilo de vida culinario italiano</span>
             </div>
       </div>
     <div className="container px-4 px-lg-5">
@@ -30,7 +30,7 @@ const Blog =  () =>
                     </a>
                     <p className="post-meta">
                         Posteado por
-                        <a href="#!"> Appetitoso Admin</a> el día 18 Septiembre, 2021
+                        <a href="#!"> Mario Patoni</a> el día 18 Septiembre, 2021
                     </p>
                 </div>
                
