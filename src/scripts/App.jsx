@@ -1,14 +1,25 @@
 
-import SignForm from './modal-screens/SignForm.jsx';
-import Booking1 from './modal-screens/Booking1.jsx';
-import Booking2 from './modal-screens/Booking2.jsx';
-import Booking3 from './modal-screens/Booking3.jsx';
-import Home from './Home.jsx';
+import NavBar from './MyNavBar';
+import Home from './Home';
+import Blog from './Blog.jsx';
 import Modal from './MyModal.jsx';
+import { useState } from 'react';
+const App =  () => {
 
-const App =  () => 
-    (
-        <Home isSignUpMode={true}/>
+    let [isModalShowing, setIsModalShowing] = useState(false);
+    let handleShowModal = () => setIsModalShowing(!isModalShowing);
+    let modalMode = "createBooking";
+    let showModalData = {
+        handleShowModal,
+        isModalShowing
+    }
+    return (
+        <div className="app-cantainer">
+            <NavBar />
+            <Home handleShowModal={handleShowModal} />
+            <Blog />
+            <Modal mode={modalMode} display={showModalData} />
+        </div>
     );
-  
+}
 export default App
