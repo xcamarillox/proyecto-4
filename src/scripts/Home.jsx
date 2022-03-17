@@ -8,6 +8,7 @@ import Bookings from "./home-sections/Bookings"
 import Menu from "./home-sections/Menu"
 import ContactUs from "./home-sections/ContactUs"
 
+import Blog from "./Blog"
 import { useState } from "react";
 
 const Home =  (props) => {
@@ -22,13 +23,14 @@ let showModalData = {
 return (
     <div className="home-cantainer">
         <MyNavBar />
-        <Jumbotron book={handleShowModal} /> 
+        <Blog />
+        {/* <Jumbotron book={handleShowModal} /> 
         <OurStory />  
         <OurMenu /> 
         <Bookings book={handleShowModal}/>
         <Menu />
         <ContactUs />
-        <MyModal mode={modalMode} display={showModalData} /> 
+        <MyModal mode={modalMode} display={showModalData} />  */}
     </div>
 )
 

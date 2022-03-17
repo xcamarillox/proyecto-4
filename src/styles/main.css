@@ -54,7 +54,7 @@ home-cantainer {
 }
 
 .navbar a.dropdown-item {
-    color: black !important;
+    color: rgb(33, 37, 41) !important;
 }
 
 .slices-container {
@@ -93,7 +93,7 @@ home-cantainer {
     max-height: 350px;
     min-height: 300px;
     color: white;
-    background-color: black;
+    background-color: rgb(33, 37, 41);
 }
 
 .menu-header-footer {
@@ -124,7 +124,7 @@ home-cantainer {
 }
 
 .contactus-container {
-    background-color: black;
+    background-color: rgb(33, 37, 41);
     width: 100%;
     text-align: center;
     color: white;
@@ -158,7 +158,7 @@ h4.main {
 }
 
 .form-control.contactus {
-    background-color: black;
+    background-color: rgb(33, 37, 41);
     caret-color: white;
     color: white;
     border: 1px solid lightgray;
@@ -185,6 +185,35 @@ textarea.form-control.contactus {
 iframe {
     width: 100%;
     height: 300px;
+}
+
+.blog a {
+    color: #212529;
+    text-decoration: none;
+}
+
+.blog a:hover {
+    color: #0085A1;
+}
+
+.blog .jumbotron-container {
+    width: 100%;
+    height: 80vh;
+    background-image: url("../../assets/table.jpg");
+    background-size: cover;
+    overflow: hidden;
+}
+
+.blog .subheading {
+    font-size: 1.3rem;
+    font-weight: 100;
+    line-height: 1.1;
+    display: block;
+    margin-top: 0.625rem;
+}
+
+.blog .container {
+    margin-top: 40px;
 }
 
 @media screen and (min-width: 768px) {
