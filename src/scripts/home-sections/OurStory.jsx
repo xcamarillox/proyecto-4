@@ -2,7 +2,7 @@ import kitchen from "../../../assets/kitchen.jpg"
 
 const OurStory =  () => {
     return (
-        <div className="slices-container">
+        <div className="slices-container" id="our-story">
             <div className="slice">
                 <div>
                     <h3>Nuestra historia</h3>

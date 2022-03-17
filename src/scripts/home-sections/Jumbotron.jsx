@@ -12,10 +12,12 @@ const Jumbotron =  (props) => {
                     Abierto para cenas en el interior y pedidos por Rappi
                 </h1>
                 <div>
-                    <Button variant="outline-light" onClick={props.book} size="lg">
+                    <Button variant="outline-light" onClick={props.book} size="lg" id="jumbotron-book">
                         Reservar
                     </Button>
-                    <Button variant="outline-light" size="lg"
+                    <Button 
+                        variant="outline-light" 
+                        size="lg"
                         onClick={(e) => 
                         {
                             e.preventDefault();

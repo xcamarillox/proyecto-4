@@ -4,7 +4,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 const ContactUs =  (props) => {
     return (
-        <footer className="contactus-container">
+        <footer className="contactus-container" id="contact-us">
             <div className="contactus-header">
                     <h3>Dónde encontrarnos</h3>
                     <p>Plaza Fiesta San Agustín.<br />

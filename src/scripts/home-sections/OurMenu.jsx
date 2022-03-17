@@ -2,7 +2,7 @@ import pasta from "../../../assets/pasta.jpg"
 
 const OurMenu =  () => {
     return (
-        <div className="slices-container">
+        <div className="slices-container" id="our-menu">
             <div className="slice slice-reverse">
                 <div>
                     <h3>Nuestro menú</h3>

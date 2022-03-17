@@ -3,6 +3,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
+
+import { Switch, Route, Link } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
+
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCircleUser} from "@fortawesome/free-solid-svg-icons";
@@ -32,19 +36,26 @@ return (
         </Nav>
         <Nav>
           {/* <Nav.Link eventKey={2} href="#memes">Dank memes</Nav.Link> */}
-          <Nav.Link href="#deets">Nuestra Historia</Nav.Link>
-          <Nav.Link href="#deets">Nuestro Menú</Nav.Link>
-          <Nav.Link href="#deets">Reservaciones</Nav.Link>
-          <Nav.Link href="#deets">Ordenar</Nav.Link>
-          <Nav.Link href="#deets">Blog</Nav.Link>
-          <Nav.Link href="#deets"><FontAwesomeIcon icon={faUser} /> Acceder</Nav.Link>
-          <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} className="fa-xl" />} id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Mi Perfil</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Mis pedidos</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Mis reservaciones</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Cerrar Sesión</NavDropdown.Item>
-          </NavDropdown>
+          <Nav.Link as={HashLink} smooth to='/home#our-story'>Nuestra Historia</Nav.Link>
+          <Nav.Link as={HashLink} smooth to='/home#our-menu'>Nuestro Menú</Nav.Link>
+          <Nav.Link as={HashLink} smooth to='/home#bookings'>Reservaciones</Nav.Link>
+          <Nav.Link as={HashLink} smooth to='/home#menu'>Ordenar</Nav.Link>
+          <Nav.Link as={HashLink} smooth to='/home#contact-us'>Contacto</Nav.Link>
+          <Nav.Link as={HashLink} smooth to='/blog'>Blog</Nav.Link>
+          { !props.isUserLogged && 
+            <Nav.Link onClick={props.handleShowModal} className="nowrap" id="navbar-login" >
+              <FontAwesomeIcon icon={faUser} /> Acceder
+            </Nav.Link>
+          }
+          { props.isUserLogged &&
+            <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} className="fa-xl" />} id="collasible-nav-dropdown">
+              <NavDropdown.Item>Mi Perfil</NavDropdown.Item>
+              <NavDropdown.Item>Mis pedidos</NavDropdown.Item>
+              <NavDropdown.Item as={HashLink}>Mis reservaciones</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item as={HashLink}>Cerrar Sesión</NavDropdown.Item>
+            </NavDropdown>
+          }
         </Nav>
       </Navbar.Collapse>
       </Container>
