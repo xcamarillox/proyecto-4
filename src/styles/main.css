@@ -41,6 +41,10 @@ home-cantainer {
     margin: 20px 60px;
 }
 
+.navbar {
+    font-weight: 500;
+}
+
 .navbar-animation {
     transition: 0.6s;
 }
@@ -49,8 +53,9 @@ home-cantainer {
     color: white !important;
 }
 
-.navbar .titulo {
-    letter-spacing: 2px;
+h1.titulo {
+    font-weight: 300 !important;
+    letter-spacing: 5px;
 }
 
 .navbar a.dropdown-item {
