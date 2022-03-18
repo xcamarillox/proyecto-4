@@ -9,7 +9,7 @@ Si se hace una reserva, normalmente no le pedimos que desocupe una mesa. Sin emb
 
 Los grupos de 7 o más invitados pueden reservar una mesa con anticipación contactando directamente al equipo.
 
-Teléfono: 01234564
+Teléfono: 8181234567
 
 Correo electrónico: reservas@appetitoso.com.mx
 
