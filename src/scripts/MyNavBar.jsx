@@ -27,7 +27,7 @@ return (
   <header>
     <Navbar  className="navbar-animation" collapseOnSelect fixed="top" bg={bg} variant="dark" expand="lg">
       <Container>
-      <Navbar.Brand href="#home"><h1 className="titulo">APPETITOSO</h1></Navbar.Brand>
+      <Navbar.Brand as={HashLink} smooth to="/home#top"><h1 className="titulo">APPETITOSO</h1></Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
@@ -41,7 +41,7 @@ return (
           <Nav.Link as={HashLink} smooth to='/home#bookings'>Reservaciones</Nav.Link>
           <Nav.Link as={HashLink} smooth to='/home#menu'>Ordenar</Nav.Link>
           <Nav.Link as={HashLink} smooth to='/home#contact-us'>Contacto</Nav.Link>
-          <Nav.Link as={HashLink} smooth to='/blog'>Blog</Nav.Link>
+          <Nav.Link as={HashLink} smooth to='/blog#top'>Blog</Nav.Link>
           { !props.isUserLogged && 
             <Nav.Link onClick={props.handleShowModal} className="nowrap" id="navbar-login" >
               <FontAwesomeIcon icon={faUser} /> Acceder

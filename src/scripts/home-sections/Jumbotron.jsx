@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 const Jumbotron =  (props) => {
     let [isModalShowing, setIsModalShowing] = useState(false);
     return (
-        <div className="jumbotron-container">
+        <div className="jumbotron-container" id="top">
             <div className="jumbotron-overlay">
                 <h1>
                     Abierto para cenas en el interior y pedidos por Rappi

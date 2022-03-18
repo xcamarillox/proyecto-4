@@ -9,7 +9,7 @@ const Home =  ({ handleShowModal }) => {
     return (
         <div className="home-cantainer">
             <Jumbotron book={handleShowModal} /> 
-            <OurStory />  
+            <OurStory /> 
             <OurMenu  /> 
             <Bookings book={handleShowModal}/>
             <Menu />

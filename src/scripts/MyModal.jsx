@@ -14,15 +14,12 @@ let MyModal = ({mode, display}) => {
   let createBookingInit = () => {
     setPage(1);
     setModalTitle ("Nueva Reservación")
-    console.log("createBookingInit")
   }
   let listBookingsInit = () => {
     setModalTitle ("Lista de Reservaciones") 
-    console.log("listBookingsInit")
   }
   let signInit = () => {
-    setModalTitle ("Lista de Reservaciones") 
-    console.log("signInit")
+    setModalTitle ("") 
   }
   useEffect( () => {
     if (mode == "createBooking") createBookingInit();

@@ -1,6 +1,6 @@
 const Blog =  () => 
     (
-    <div className="blog">
+    <div className="blog" id="top">
       <div className="jumbotron-container">
             <div className="jumbotron-overlay">
                 <h1>La Vita Nostra</h1>

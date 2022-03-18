@@ -101,6 +101,10 @@ h1.titulo {
     background-color: rgb(33, 37, 41);
 }
 
+.menu-container {
+    padding-top: 50px;
+}
+
 .menu-header-footer {
     display: flex;
     width: calc (100% - 20px);
@@ -136,7 +140,7 @@ h1.titulo {
 }
 
 .contactus-header {
-    padding: 30px;
+    padding: 80px 30px 80px 30px;
 }
 
 .contactus-container>h3 {

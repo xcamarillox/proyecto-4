@@ -4,7 +4,7 @@ import Home from './Home';
 import Blog from './Blog.jsx';
 import Modal from './MyModal.jsx';
 import { useState } from 'react';
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 const App =  () => {
 
     let [isModalShowing, setIsModalShowing] = useState(false);
@@ -13,7 +13,6 @@ const App =  () => {
     //let modalMode = "sign";
     let handleShowModal = (e) => {
         if (!isModalShowing) {
-            console.log(e.target.id)
             if (e.target.id == "navbar-login") setModalMode("sign")
             else setModalMode("createBooking");
         }
@@ -27,11 +26,14 @@ const App =  () => {
         <div className="app-cantainer">
             <NavBar isUserLogged={isUserLogged} handleShowModal={handleShowModal} />
             <Switch>
-                <Route path={["/home","/"]} exact>
+                <Route path="/home" exact>
                     <Home handleShowModal={handleShowModal} />
                 </Route>
-                <Route path="/blog">
+                <Route path="/blog" exact>
                     <Blog />
+                </Route>
+                <Route path="/">
+                    <Redirect to="/home" />
                 </Route>
             </Switch>
             <Modal mode={modalMode} display={showModalData} />
