@@ -5,16 +5,16 @@ import Bookings from "./home-sections/Bookings"
 import Menu from "./home-sections/Menu"
 import ContactUs from "./home-sections/ContactUs"
 
-const Home =  ({ handleShowModal }) => {
+const Home =  () => {
     return (
-        <div className="home-cantainer">
-            <Jumbotron book={handleShowModal} /> 
+        <>
+            <Jumbotron /> 
             <OurStory /> 
             <OurMenu  /> 
-            <Bookings book={handleShowModal}/>
+            <Bookings />
             <Menu />
             <ContactUs />
-        </div>
+        </>
     )
 
 }

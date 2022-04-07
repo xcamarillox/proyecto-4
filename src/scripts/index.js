@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, HashRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom'; //HashRouter replaces BrowserRouter
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/index.css';
 import '../styles/main.css';

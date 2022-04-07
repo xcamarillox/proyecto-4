@@ -1,10 +1,14 @@
-import { useState } from "react";
-import Image from 'react-bootstrap/Image'
-import pizza from "../../../assets/pizza.jpg"
+import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 
-const Jumbotron =  (props) => {
-    let [isModalShowing, setIsModalShowing] = useState(false);
+import { ModalContext } from "../context/AppContext"
+
+const Jumbotron =  () => {
+
+    const { modalData, setModalData } = useContext(ModalContext);
+    let handleShowModal = () => {
+        setModalData({ isModalShowing: !modalData.isModalShowing, mode: "createBooking" });
+    };
     return (
         <div className="jumbotron-container" id="top">
             <div className="jumbotron-overlay">
@@ -12,17 +16,13 @@ const Jumbotron =  (props) => {
                     Abierto para cenas en el interior y pedidos por Rappi
                 </h1>
                 <div>
-                    <Button variant="outline-light" onClick={props.book} size="lg" id="jumbotron-book">
+                    <Button variant="outline-light" onClick={handleShowModal} size="lg" id="jumbotron-book">
                         Reservar
                     </Button>
                     <Button 
                         variant="outline-light" 
                         size="lg"
-                        onClick={(e) => 
-                        {
-                            e.preventDefault();
-                            window.location.href='https://www.rappi.com.mx/';
-                        }}>
+                        onClick={ () => window.location.href='https://www.rappi.com.mx/' }>
                         Ordenar
                     </Button>
                 </div>

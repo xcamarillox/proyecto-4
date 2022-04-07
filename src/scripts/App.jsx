@@ -5,29 +5,14 @@ import Blog from './Blog.jsx';
 import Modal from './MyModal.jsx';
 import { useState } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
+import { AppProvider } from "./context/AppContext.jsx"
 const App =  () => {
-
-    let [isModalShowing, setIsModalShowing] = useState(false);
-    let [isUserLogged, setIsUserLogged] = useState(false);
-    let [modalMode, setModalMode] = useState("sign");
-    //let modalMode = "sign";
-    let handleShowModal = (e) => {
-        if (!isModalShowing) {
-            if (e.target.id == "navbar-login") setModalMode("sign")
-            else setModalMode("createBooking");
-        }
-        setIsModalShowing(!isModalShowing)
-    };
-    let showModalData = {
-        handleShowModal,
-        isModalShowing
-    }
     return (
-        <div className="app-cantainer">
-            <NavBar isUserLogged={isUserLogged} handleShowModal={handleShowModal} />
+        <AppProvider>
+            <NavBar  />
             <Switch>
                 <Route path="/home" exact>
-                    <Home handleShowModal={handleShowModal} />
+                    <Home />
                 </Route>
                 <Route path="/blog" exact>
                     <Blog />
@@ -36,8 +21,8 @@ const App =  () => {
                     <Redirect to="/home" />
                 </Route>
             </Switch>
-            <Modal mode={modalMode} display={showModalData} />
-        </div>
+            <Modal />
+        </AppProvider>
     );
 }
 export default App
