@@ -8,32 +8,20 @@ import Booking3 from './modal-screens/Booking3.jsx';
 import { ModalContext } from "../scripts/context/AppContext"
 
 const MyModal = () => {
-  let [page, setPage] = useState(3);
-  let [modalTitle, setModalTitle] = useState("");
-  
-  let handleClose = () => setModalData({ ...modalData, isModalShowing: !modalData.isModalShowing });
-  let handleClick = () => setPage(page + 1)
-
-  let createBookingInit = () => {
-    setPage(1);
-    setModalTitle ("Nueva Reservación")
-  }
-  let listBookingsInit = () => {
-    setModalTitle ("Lista de Reservaciones") 
-  }
-  let signInit = () => {
-    setModalTitle ("") 
-  }
-
   const { modalData, setModalData } = useContext( ModalContext )
+  const [modalSetup, setModalSetup] = useState({ title:"", page: 3 });
+  const handleClose = () => setModalData({ ...modalData, isModalShowing: !modalData.isModalShowing });
+  const handleClick = () => setModalSetup({ ...modalSetup, page: modalSetup.page + 1})
+
+  let modalInitSetup = (mode) => {
+    if (mode == "createBooking") setModalSetup({ title:"Nueva Reservación", page: 1 })
+    else if (mode == "listBookings") setModalSetup({ title:"Lista de Reservaciones", page: 1 }) 
+    else if (mode == "sign") setModalSetup({ title:"", page: 1 }) 
+  }
 
   useEffect( () => {
-    if (modalData.mode == "createBooking") createBookingInit();
-    if (modalData.mode == "listBookings") listBookingsInit();
-    if (modalData.mode == "sign") signInit();
+    modalInitSetup(modalData.mode);
   }, [modalData.isModalShowing])
-
-  
 
   return (
       <Modal
@@ -46,15 +34,15 @@ const MyModal = () => {
         { modalData.mode!="sign" && 
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              { modalTitle }
+              { modalSetup.title }
             </Modal.Title>
           </Modal.Header>
         }
         <Modal.Body>
           { modalData.mode == "sign" && <SignForm isSignUpMode={false} /> }
-          { modalData.mode == "createBooking" && page==1 && <Booking1/> }
-          { modalData.mode == "createBooking" && page==2 && <Booking2/> }
-          { modalData.mode == "createBooking" && page==3 && <Booking3/> }
+          { modalData.mode == "createBooking" && modalSetup.page==1 && <Booking1/> }
+          { modalData.mode == "createBooking" && modalSetup.page==2 && <Booking2/> }
+          { modalData.mode == "createBooking" && modalSetup.page==3 && <Booking3/> }
           { modalData.mode == "listBookings" && <Booking1/> }
         </Modal.Body>
         { modalData.mode != "sign" &&
