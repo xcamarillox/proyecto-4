@@ -5,13 +5,27 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Toastify from 'toastify-js'
 import Booking3 from './Booking3.jsx';
 
+let toastErrorSetup = {
+  text: "This is a toast",
+  duration: 7000,
+  newWindow: true,
+  close: true,
+  gravity: "bottom", // `top` or `bottom`
+  position: "right", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  style: {
+    background: "#ff4d4d",
+  }
+}
 
 const Booking1 =  (props) => {
 let [isSignUpMode, setIsSignUpMode] = useState(props.isSignUpMode);
 let handleSignClick = () => {
-  setIsSignUpMode(!isSignUpMode)
+  setIsSignUpMode(!isSignUpMode);
+  Toastify(toastErrorSetup).showToast();
 }
 return (
     <Form>

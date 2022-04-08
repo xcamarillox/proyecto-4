@@ -1,7 +1,5 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
 import SignForm from './modal-screens/SignForm';
 import { useState, useEffect } from "react";
 import Booking1 from './modal-screens/Booking1.jsx';
