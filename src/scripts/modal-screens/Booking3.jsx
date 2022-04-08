@@ -11,7 +11,7 @@ const Booking3 =  (props) =>
   <Form>
     {/* <h3 className="text-center">Reservaciones</h3> */}
     <Row>
-      <Col md={2}>
+      <Col md>
         <Form.Group className="mb-2 title" controlId="title">
             <Form.Label>Título</Form.Label>
             <Form.Select aria-label="Default select example">
@@ -37,7 +37,7 @@ const Booking3 =  (props) =>
       </Col>
     </Row>
     <Row>
-      <Col md={2}>
+      <Col md>
         <Form.Group className="mb-2" controlId="countryCode">
           <Form.Label>Código del País</Form.Label>
           <Form.Control placeholder="+52"/>

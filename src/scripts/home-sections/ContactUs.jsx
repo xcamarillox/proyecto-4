@@ -49,7 +49,7 @@ const ContactUs =  (props) => {
             </div>
             <div className="contactus-footer">
                 <div>
-                    Copyright © 2022. Appetitoso. All rights reserved.
+                    BOLSA DE TRABAJO | FAQS | AVISO DE PRIVACIDAD & COOKIES 
                 </div>
                 <div>
                     Copyright © 2022. Appetitoso. All rights reserved.

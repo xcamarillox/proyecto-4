@@ -7,9 +7,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Booking3 from './Booking3.jsx';
 
+
 const Booking1 =  (props) => {
 let [isSignUpMode, setIsSignUpMode] = useState(props.isSignUpMode);
-let handleClick = () => {
+let handleSignClick = () => {
   setIsSignUpMode(!isSignUpMode)
 }
 return (
@@ -20,12 +21,13 @@ return (
           <Row>
             <Col md>
               <Form.Group className="mb-2 title" controlId="title">
-                  <Form.Label>Titulo</Form.Label>
+                  <Form.Label>Título</Form.Label>
                   <Form.Select aria-label="Default select example">
-                    <option value="1">Sr.</option>
-                    <option value="2">Sra.</option>
-                    <option value="3">Srita.</option>
-                    <option value="2">Dr.</option>
+                    <option value="1"></option>
+                    <option value="2">Sr.</option>
+                    <option value="3">Sra.</option>
+                    <option value="4">Srita.</option>
+                    <option value="5">Dr.</option>
                   </Form.Select>
               </Form.Group>
             </Col>
@@ -98,7 +100,7 @@ return (
         </Button>
       </div>
       <p className="forgot-password text-end">
-      {isSignUpMode ? "Ya registrado? " : "Aún sin cuenta? "}<Link to='#' onClick={handleClick}>{isSignUpMode ? "Accede" : "Crea una"}</Link>
+      {isSignUpMode ? "Ya registrado? " : "Aún sin cuenta? "}<Link to='#' onClick={handleSignClick}>{isSignUpMode ? "Accede" : "Crea una"}</Link>
       </p>
     </Form>
 )

@@ -1,4 +1,6 @@
 import {useState, createContext, useContext} from 'react'
+import {auth} from "../firebase-setup"
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 
 
 export const ModalContext = createContext() // createContext({ modalData: {}, setModalData: ()=>{} })
@@ -24,6 +26,11 @@ const userAuthSetup = {
   isAuthenticated: false
 }
 
+const signFunction = (mode, email, password) => { 
+  if (mode == "signUp") createUserWithEmailAndPassword(auth, email, password)
+  else if (mode == "signIn") signInWithEmailAndPassword(auth, email, password)
+}
+
 export function AppProvider({children}) {
     let [modalData, setModalData] = useState(modalDataSetup);
     let [userAuth, setUseAuth] = useState({userAuthSetup});
@@ -32,13 +39,10 @@ export function AppProvider({children}) {
       modalData, 
       setModalData
     }
-    const userAuthProviderValue = {
-      userAuth, 
-      setUseAuth
-    }
+  
     return (
       <ModalContext.Provider value={ modalContextProviderValue }>
-        <AuthContext.Provider value={ userAuthProviderValue }>
+        <AuthContext.Provider value={ signFunction }>
           { children }
         </AuthContext.Provider>
       </ModalContext.Provider>
