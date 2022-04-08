@@ -28,7 +28,7 @@ const ContactUs =  (props) => {
                    </div>
                    <div className="contactus-col">
                        <h4 className="main">Mensaje Exprés</h4>
-                       <Form>
+                       <Form onSubmit={ (e) => { e.preventDefault() }}>
                         <Form.Group className="mb-2" controlId="lastName">
                             <Form.Control className="contactus" placeholder="Ingresa tu correo (te contactamos en breve)." />
                         </Form.Group>

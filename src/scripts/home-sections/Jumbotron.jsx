@@ -5,9 +5,9 @@ import { ModalContext } from "../context/AppContext"
 
 const Jumbotron =  () => {
 
-    const { modalData, setModalData } = useContext(ModalContext);
+    const { modalData:{ isModalShowing }, setModalData } = useContext(ModalContext);
     let handleShowModal = () => {
-        setModalData({ isModalShowing: !modalData.isModalShowing, mode: "createBooking" });
+        setModalData({ isModalShowing: !isModalShowing, modalMode: "createBooking" });
     };
     return (
         <div className="jumbotron-container" id="top">

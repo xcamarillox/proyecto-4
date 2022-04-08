@@ -1,7 +1,8 @@
 import {useState, createContext, useContext} from 'react'
 
 
-export const ModalContext = createContext()
+export const ModalContext = createContext() 
+// createContext({ modalData: {}, setModalData: ()=>{} })
 export const AuthContext = createContext()
 
 
@@ -18,19 +19,29 @@ export function getModalContext() {
     
     
 const modalDataSetup = {
-      mode: "sign",
-      isModalShowing: false
+  modalMode: "sign",
+  isModalShowing: false
+}
+const userAuthSetup = {
+  user: "",
+  isAuthenticated: false
 }
 
 export function AppProvider({children}) {
     let [modalData, setModalData] = useState(modalDataSetup);
-    const ModalContextProviderValue = {
+    let [userAuth, setUseAuth] = useState({userAuthSetup});
+
+    const modalContextProviderValue = {
       modalData, 
       setModalData
     }
+    const userAuthProviderValue = {
+      userAuth, 
+      setUseAuth
+    }
     return (
-      <ModalContext.Provider value={ ModalContextProviderValue }>
-        <AuthContext.Provider value={{}}>
+      <ModalContext.Provider value={ modalContextProviderValue }>
+        <AuthContext.Provider value={ userAuthProviderValue }>
           { children }
         </AuthContext.Provider>
       </ModalContext.Provider>

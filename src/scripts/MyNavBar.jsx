@@ -21,9 +21,9 @@ const MyNavBar =  (props) => {
     })
   }, [])
 
-  const { modalData, setModalData } = useContext(ModalContext)
+  const { modalData: { isModalShowing, modalMode } , setModalData } = useContext(ModalContext)
   let handleShowModal = () => {
-    setModalData({ isModalShowing: !modalData.isModalShowing, mode: "sign" });
+    setModalData({ isModalShowing: !isModalShowing, modalMode: "sign" });
   };
 
   return (
