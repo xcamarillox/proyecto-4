@@ -1,23 +1,20 @@
 import {useState, createContext, useContext} from 'react'
 
 
-export const ModalContext = createContext() 
-// createContext({ modalData: {}, setModalData: ()=>{} })
+export const ModalContext = createContext() // createContext({ modalData: {}, setModalData: ()=>{} })
 export const AuthContext = createContext()
 
-
-//let [isUserLogged, setIsUserLogged] = useState(false);
-
-/*
 export function getModalContext() {
-  const context = React.useContext(ModalContext)
-  if (!context) {
-    throw new Error(`useCount must be used within a CountProvider`)
-  }
+  const context = useContext(ModalContext)
+  if (!context) throw new Error(`ModalContext must be used within a AppProvider`)
   return context
-}*/
-    
-    
+}
+export function getAuthContext() {
+  const context = useContext(AuthContext)
+  if (!context) throw new Error(`AuthContext must be used within a AppProvider`)
+  return context
+}
+      
 const modalDataSetup = {
   modalMode: "sign",
   isModalShowing: false

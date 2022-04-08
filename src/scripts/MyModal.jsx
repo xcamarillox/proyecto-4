@@ -1,14 +1,14 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import SignForm from './modal-screens/SignForm';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Booking1 from './modal-screens/Booking1.jsx';
 import Booking2 from './modal-screens/Booking2.jsx';
 import Booking3 from './modal-screens/Booking3.jsx';
-import { ModalContext } from "./context/AppContext"
+import { getModalContext } from "./context/AppContext"
 
 const MyModal = () => {
-  const { modalData:{ isModalShowing, modalMode }, setModalData } = useContext( ModalContext )
+  const { modalData:{ isModalShowing, modalMode }, setModalData } = getModalContext()
   const [{ title, page }, setModalSetup ] = useState({ title:"", page: 3 });
   const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
   const handleNextClick = () => setModalSetup({ title, page: page + 1})

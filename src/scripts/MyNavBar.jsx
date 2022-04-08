@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
 import { HashLink } from 'react-router-hash-link';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 
-import { ModalContext } from "./context/AppContext"
+import { getModalContext } from "./context/AppContext"
 
 const MyNavBar =  (props) => {
 
@@ -21,7 +21,7 @@ const MyNavBar =  (props) => {
     })
   }, [])
 
-  const { modalData: { isModalShowing, modalMode } , setModalData } = useContext(ModalContext)
+  const { modalData: { isModalShowing, modalMode } , setModalData } = getModalContext()
   let handleShowModal = () => {
     setModalData({ isModalShowing: !isModalShowing, modalMode: "sign" });
   };
