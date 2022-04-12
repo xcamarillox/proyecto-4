@@ -1,10 +1,10 @@
 import Button from "react-bootstrap/Button";
 
-import { getModalContext } from "../context/AppContext"
+import { getContextType } from "../context/AppContext"
 
 const Jumbotron =  () => {
 
-    const { modalData:{ isModalShowing }, setModalData } = getModalContext();
+    const { modalData:{ isModalShowing }, setModalData } = getContextType('ModalContext');
     let handleShowModal = () => {
         setModalData({ isModalShowing: !isModalShowing, modalMode: "createBooking" });
     };

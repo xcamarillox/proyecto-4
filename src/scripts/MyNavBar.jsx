@@ -3,13 +3,15 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
 import { HashLink } from 'react-router-hash-link';
 import { useState, useEffect } from "react";
 
-import { getModalContext } from "./context/AppContext"
+import { getContextType } from "./context/AppContext"
+import { makeAToast } from './toast-maker'
 
 const MyNavBar =  (props) => {
 
@@ -21,11 +23,21 @@ const MyNavBar =  (props) => {
     })
   }, [])
 
-  const { modalData: { isModalShowing, modalMode } , setModalData } = getModalContext()
+  const { modalData: { isModalShowing, modalMode } , setModalData } = getContextType('ModalContext')
+  const { currentUser, signActions } = getContextType('AuthContext')
   let handleShowModal = () => {
     setModalData({ isModalShowing: !isModalShowing, modalMode: "sign" });
   };
-
+  let closeSessionHandle = async () => {
+    try{
+      await signActions('signOut')
+      makeAToast('s', 'Cerraste Seción');
+    }catch(error){
+      console.log(error)
+      if (error.code) makeAToast('d', error.code);
+      else makeAToast('d', error.message);
+    }
+  };
   return (
     <header>
       <Navbar  className="navbar-animation" collapseOnSelect fixed="top" bg={ navbarBgColor } variant="dark" expand="lg">
@@ -45,18 +57,18 @@ const MyNavBar =  (props) => {
             <Nav.Link as={ HashLink } smooth to='/home#menu'>Ordenar</Nav.Link>
             <Nav.Link as={ HashLink } smooth to='/home#contact-us'>Contacto</Nav.Link>
             <Nav.Link as={ HashLink } smooth to='/blog#top'>Blog</Nav.Link>
-            { !props.isUserLogged && 
+            { !currentUser && 
               <Nav.Link onClick={ handleShowModal } className="nowrap" id="navbar-login" >
                 <FontAwesomeIcon icon={ faUser } /> Acceder
               </Nav.Link>
             }
-            { props.isUserLogged &&
+            { currentUser &&
               <NavDropdown title={<FontAwesomeIcon icon={ faCircleUser } className="fa-xl" />} id="collasible-nav-dropdown">
                 <NavDropdown.Item>Mi Perfil</NavDropdown.Item>
                 <NavDropdown.Item>Mis pedidos</NavDropdown.Item>
-                <NavDropdown.Item as={ HashLink }>Mis reservaciones</NavDropdown.Item>
+                <NavDropdown.Item as={ Button }  onClick={closeSessionHandle} >Mis reservaciones</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item as={ HashLink }>Cerrar Sesión</NavDropdown.Item>
+                <NavDropdown.Item as={ Button }  onClick={closeSessionHandle} >Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
             }
           </Nav>

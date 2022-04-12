@@ -5,24 +5,20 @@ import { useState, useEffect } from "react";
 import Booking1 from './modal-screens/Booking1.jsx';
 import Booking2 from './modal-screens/Booking2.jsx';
 import Booking3 from './modal-screens/Booking3.jsx';
-import { getModalContext } from "./context/AppContext"
+import { getContextType } from "./context/AppContext"
 
 const MyModal = () => {
-  const { modalData:{ isModalShowing, modalMode }, setModalData } = getModalContext()
+  const { modalData:{ isModalShowing, modalMode }, setModalData } = getContextType('ModalContext')
   const [{ title, page }, setModalSetup ] = useState({ title:"", page: 3 });
   const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
   const handleNextClick = () => setModalSetup({ title, page: page + 1})
  
 
-  let modalInitSetup = (modalMode) => {
+  let modalInitSetup = () => {
     if (modalMode == "createBooking") setModalSetup({ title:"Nueva Reservación", page: 1 })
     else if (modalMode == "listBookings") setModalSetup({ title:"Lista de Reservaciones", page: 1 }) 
     else if (modalMode == "sign") setModalSetup({ title:"", page: 1 }) 
   }
-
-  useEffect( () => {
-    if(isModalShowing) modalInitSetup(modalMode);
-  }, [isModalShowing])
 
   return (
       <Modal
@@ -30,6 +26,7 @@ const MyModal = () => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={ isModalShowing }
+        onShow={ modalInitSetup }
         onHide={ handleClose }
       >
         { modalMode!="sign" && 
@@ -40,7 +37,7 @@ const MyModal = () => {
           </Modal.Header>
         }
         <Modal.Body>
-          { modalMode == "sign" && <SignForm isSignUpMode={false} /> }
+          { modalMode == "sign" && <SignForm /> }
           { modalMode == "createBooking" && page==1 && <Booking1/> }
           { modalMode == "createBooking" && page==2 && <Booking2/> }
           { modalMode == "createBooking" && page==3 && <Booking3/> }

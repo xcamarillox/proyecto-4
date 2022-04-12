@@ -8,6 +8,7 @@ const ContactUs =  (props) => {
             <div className="contactus-header">
                     <h3>Dónde encontrarnos</h3>
                     <p>Plaza Fiesta San Agustín.<br />
+                    Local 54 Tercer Piso<br />
                     Av. Lázaro Cárdenas #222 Col. Residencial San Agustín, San Pedro Garza García, Nuevo León, México.</p>
             </div>
             <iframe 

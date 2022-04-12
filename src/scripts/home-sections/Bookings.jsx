@@ -1,9 +1,9 @@
 import Button from "react-bootstrap/Button";
 
-import { getModalContext } from "../context/AppContext"
+import { getContextType } from "../context/AppContext"
 
 const Bookings =  (props) => {
-    const { modalData: { isModalShowing, modalMode }, setModalData } = getModalContext();
+    const { modalData: { isModalShowing, modalMode }, setModalData } = getContextType('ModalContext');
     let handleShowModal = () => {
         setModalData({ isModalShowing: !isModalShowing, modalMode: "createBooking" });
     };
