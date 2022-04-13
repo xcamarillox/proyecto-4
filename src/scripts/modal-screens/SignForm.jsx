@@ -7,12 +7,12 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import { signServerActions } from '../firebase-aux'
 import { makeAToast } from '../toast-maker'
 import { getContextType } from '../context/AppContext';
 
 const SignForm =  (props) => {
   let [isSignUpMode, setIsSignUpMode] = useState(false);
-  const { signActions } = getContextType('AuthContext');
   const { modalData: { isModalShowing, modalMode } , setModalData } = getContextType('ModalContext')
   let handleSignLink = () => setIsSignUpMode(!isSignUpMode);
 
@@ -21,12 +21,12 @@ const SignForm =  (props) => {
 
   const handleSignAction= async (e) => {
     e.preventDefault();
-    console.log(e);
-    const signMode = isSignUpMode ? 'signUp' :  'signIn';
+    let signMode;
+    if (e.type == "submit")  signMode = isSignUpMode ? 'signUp' :  'signIn';
+    else signMode = 'signGoogle';
     const toastText = isSignUpMode ? 'Usuario creado. Accede.' :  'Bienvenido!!'
     try{
-      if (e.type == "submit") await signActions(signMode, emailRef.current.value, passwordRef.current.value)
-      else await signActions('signGoogle');
+      await signServerActions(signMode, emailRef.current.value, passwordRef.current.value)
       makeAToast('s', toastText);
       if (isSignUpMode) setIsSignUpMode(!isSignUpMode);
       else setModalData({ isModalShowing: false, modalMode });

@@ -1,13 +1,11 @@
 import Button from "react-bootstrap/Button";
-
 import { getContextType } from "../context/AppContext"
+import { makeAToast } from '../toast-maker'
+
 
 const Jumbotron =  () => {
-
-    const { modalData:{ isModalShowing }, setModalData } = getContextType('ModalContext');
-    let handleShowModal = () => {
-        setModalData({ isModalShowing: !isModalShowing, modalMode: "createBooking" });
-    };
+    const { makeABooking } = getContextType('ModalContext');
+    let handleBookingClick = () => makeABooking();
     return (
         <div className="jumbotron-container" id="top">
             <div className="jumbotron-overlay">
@@ -15,7 +13,7 @@ const Jumbotron =  () => {
                     Abierto para cenas en el interior y pedidos por Rappi
                 </h1>
                 <div>
-                    <Button variant="outline-light" onClick={handleShowModal} size="lg" id="jumbotron-book">
+                    <Button variant="outline-light" onClick={ handleBookingClick } size="lg" id="jumbotron-book">
                         Reservar
                     </Button>
                     <Button 
@@ -28,7 +26,6 @@ const Jumbotron =  () => {
             </div>
         </div>
     )
-    
-    }
+}
         
     export default Jumbotron

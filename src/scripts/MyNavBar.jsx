@@ -11,6 +11,7 @@ import { HashLink } from 'react-router-hash-link';
 import { useState, useEffect } from "react";
 
 import { getContextType } from "./context/AppContext"
+import { signServerActions } from './firebase-aux'
 import { makeAToast } from './toast-maker'
 
 const MyNavBar =  (props) => {
@@ -23,14 +24,12 @@ const MyNavBar =  (props) => {
     })
   }, [])
 
-  const { modalData: { isModalShowing, modalMode } , setModalData } = getContextType('ModalContext')
-  const { currentUser, signActions } = getContextType('AuthContext')
-  let handleShowModal = () => {
-    setModalData({ isModalShowing: !isModalShowing, modalMode: "sign" });
-  };
+  const { makeASign } = getContextType('ModalContext');
+  const { currentUser } = getContextType('AuthContext');
+  let handleShowModal = () => makeASign();
   let closeSessionHandle = async () => {
     try{
-      await signActions('signOut')
+      await signServerActions('signOut')
       makeAToast('s', 'Cerraste Sesión');
     }catch(error){
       console.log(error)
