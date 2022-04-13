@@ -15,15 +15,18 @@ const SignForm =  (props) => {
   const { signActions } = getContextType('AuthContext');
   const { modalData: { isModalShowing, modalMode } , setModalData } = getContextType('ModalContext')
   let handleSignLink = () => setIsSignUpMode(!isSignUpMode);
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  let handleSubmitClick = async (e) => {
+  const handleSignAction= async (e) => {
     e.preventDefault();
+    console.log(e);
     const signMode = isSignUpMode ? 'signUp' :  'signIn';
     const toastText = isSignUpMode ? 'Usuario creado. Accede.' :  'Bienvenido!!'
     try{
-      await signActions(signMode, emailRef.current.value, passwordRef.current.value)
+      if (e.type == "submit") await signActions(signMode, emailRef.current.value, passwordRef.current.value)
+      else await signActions('signGoogle');
       makeAToast('s', toastText);
       if (isSignUpMode) setIsSignUpMode(!isSignUpMode);
       else setModalData({ isModalShowing: false, modalMode });
@@ -35,7 +38,7 @@ const SignForm =  (props) => {
   }
 
   return (
-      <Form onSubmit={ handleSubmitClick }>
+      <Form onSubmit={ handleSignAction }>
         <h3 className="text-center">{isSignUpMode ? "REGISTRO" : "ACCESO"}</h3>
         { isSignUpMode && 
           <div>
@@ -119,6 +122,11 @@ const SignForm =  (props) => {
           <Button type="submit" variant="primary">
             {isSignUpMode ? "Registrame" : "Acceder"}
           </Button>
+          {!isSignUpMode &&
+            <Button variant="btn btn-outline-secondary" onClick={ handleSignAction }>
+              Accede con Google
+            </Button>
+          }
         </div>
         <p className="forgot-password text-end">
           {isSignUpMode ? "Ya registrado? " : "Aún sin cuenta? "}<Link to='#' onClick={handleSignLink}>{isSignUpMode ? "Accede" : "Crea una"}</Link>

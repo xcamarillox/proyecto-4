@@ -31,7 +31,7 @@ const MyNavBar =  (props) => {
   let closeSessionHandle = async () => {
     try{
       await signActions('signOut')
-      makeAToast('s', 'Cerraste Seción');
+      makeAToast('s', 'Cerraste Sesión');
     }catch(error){
       console.log(error)
       if (error.code) makeAToast('d', error.code);

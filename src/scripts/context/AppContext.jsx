@@ -4,6 +4,8 @@ import {
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
   onAuthStateChanged,
+  GoogleAuthProvider, 
+  signInWithPopup,
   signOut
 } from 'firebase/auth'
 
@@ -22,6 +24,10 @@ const signActions = async (mode, email, password) => {
     if (mode == "signUp") await createUserWithEmailAndPassword(auth, email, password)
     else if (mode == "signIn") await signInWithEmailAndPassword(auth, email, password)
     else if (mode == "signOut") await signOut(auth)
+    else if (mode == "signGoogle") {
+      const googleProvider = new GoogleAuthProvider;
+      return await signInWithPopup(auth, googleProvider);
+    }
 }
 
 const modalDataSetup = {
@@ -35,7 +41,6 @@ export function AppProvider({children}) {
   
     useEffect(() => {
       onAuthStateChanged(auth, (user)=>{
-        console.log(user);
         setCurrentUser(user);
       })
     }, []); 
