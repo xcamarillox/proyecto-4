@@ -8,17 +8,45 @@ import Booking3 from './modal-screens/Booking3.jsx';
 import { getContextType } from "./context/AppContext"
 
 const MyModal = () => {
-  const { modalData:{ isModalShowing, modalMode }, setModalData } = getContextType('ModalContext')
-  const [{ title, page }, setModalSetup ] = useState({ title:"", page: 3 });
-  const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
-  const handleNextClick = () => setModalSetup({ title, page: page + 1})
- 
+  //****************STATE****************//
+  const [{ title, page }, setModalSetup ] = useState({ title:"", page: 1 });
+  const [ isNextDisabled, setIsNextDisabled ] = useState(false);
+  const { 
+    modalData:{ isModalShowing, modalMode }, 
+    setModalData, bookingData, setBookingData 
+  } = getContextType('ModalContext')
 
-  let modalInitSetup = () => {
+  //****************HANDLERS****************//
+  const handleBeforeClick = () => {
+    if (page == 2) setIsNextDisabled(false)
+    setModalSetup({ title, page: page - 1})
+  }
+  const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
+  const handleNextClick = () => {
+    if (page == 1) setIsNextDisabled(true)
+    setModalSetup({ title, page: page + 1 })
+  }
+ 
+  //****************LIFECYCLE****************//
+  useEffect(() => {
+    setBookingData({ 
+      dateSelection: new Date().toISOString().split('T')[0],
+      adultsNumber: 1, 
+      kidsNumber: 0, 
+      toddlersNumber: 0,
+      time: [],
+      name:"",
+      lastName:"",
+      countryCode:"",
+      mobileNumber:"",
+      tipoLinea:'celular',
+      comments:""
+    });
+    setIsNextDisabled(false)
     if (modalMode == "createBooking") setModalSetup({ title:"Nueva Reservación", page: 1 })
     else if (modalMode == "listBookings") setModalSetup({ title:"Lista de Reservaciones", page: 1 }) 
     else if (modalMode == "sign") setModalSetup({ title:"", page: 1 }) 
-  }
+  }, [isModalShowing]);
 
   return (
       <Modal
@@ -26,7 +54,6 @@ const MyModal = () => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={ isModalShowing }
-        onShow={ modalInitSetup }
         onHide={ handleClose }
       >
         { modalMode!="sign" && 
@@ -39,7 +66,7 @@ const MyModal = () => {
         <Modal.Body>
           { modalMode == "sign" && <SignForm /> }
           { modalMode == "createBooking" && page==1 && <Booking1/> }
-          { modalMode == "createBooking" && page==2 && <Booking2/> }
+          { modalMode == "createBooking" && page==2 && <Booking2 setIsNextDisabled={ setIsNextDisabled } /> }
           { modalMode == "createBooking" && page==3 && <Booking3/> }
           { modalMode == "listBookings" && <Booking1/> }
         </Modal.Body>
@@ -47,12 +74,12 @@ const MyModal = () => {
             <Modal.Footer className="justify-content-between">
               { modalMode == "createBooking" &&
                 <div>
-                  <Button className="btn btn-secondary">&lt;&lt; Anterior</Button>
+                  <Button className="btn btn-secondary" onClick={handleBeforeClick} disabled={page < 2}>&lt;&lt; Anterior</Button>
                 </div>
               }
               <div>
                 <Button onClick={handleClose} className="btn btn-secondary me-3">Cerrar</Button>
-                <Button onClick={handleNextClick} className="btn btn-primary">Continuar</Button>
+                <Button onClick={handleNextClick} className="btn btn-primary" disabled={isNextDisabled}>Continuar</Button>
               </div>
             </Modal.Footer>
         }

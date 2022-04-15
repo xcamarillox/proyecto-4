@@ -14,14 +14,10 @@ export function getContextType(type = 'no-context') {
   return context
 }
 
-const modalDataSetup = {
-  modalMode: "sign",
-  isModalShowing: false
-}
-
 export function AppProvider({children}) {
-    let [modalData, setModalData] = useState(modalDataSetup);
-    let [currentUser, setCurrentUser] = useState(null);
+    let [modalData, setModalData] = useState({ isModalShowing: false });
+    let [bookingData, setBookingData] = useState();
+    let [currentUser, setCurrentUser] = useState();
   
     useEffect(() => {
       onAuthStateChanged(auth, (user)=>{
@@ -32,7 +28,7 @@ export function AppProvider({children}) {
     const makeABooking = () => {
       const mode = currentUser ? "createBooking" : "sign";
       setModalData({ isModalShowing: !modalData.isModalShowing, modalMode: mode })
-      if (!currentUser) makeAToast('s', 'Accede y reserva');
+      if (!currentUser) makeAToast('i', 'Accede y reserva');
     }
 
     const makeASign = () => {
@@ -42,6 +38,8 @@ export function AppProvider({children}) {
     const modalContextProviderValue = {
       modalData, 
       setModalData,
+      bookingData,
+      setBookingData,
       makeABooking,
       makeASign
     }
