@@ -35,6 +35,7 @@ export function AppProvider({children}) {
       setModalData({ isModalShowing: !modalData.isModalShowing, modalMode: "sign" });
     }
 
+    //**************** PROVIDED DATA *******************//
     const modalContextProviderValue = {
       modalData, 
       setModalData,
@@ -46,6 +47,7 @@ export function AppProvider({children}) {
     const authContextProviderValue = {
       currentUser
     }
+    //**************** PROVIDED DATA *******************//
   
     return (
       <ModalContext.Provider value={ modalContextProviderValue }>

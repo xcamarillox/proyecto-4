@@ -5,25 +5,43 @@ import { useState, useEffect } from "react";
 import Booking1 from './modal-screens/Booking1.jsx';
 import Booking2 from './modal-screens/Booking2.jsx';
 import Booking3 from './modal-screens/Booking3.jsx';
-import { getContextType } from "./context/AppContext"
+import { getContextType } from "./context/AppContext";
+import { saveADoc, getMeDocs } from "./firebase-aux";
+import { makeAToast } from "./toast-maker";
 
 const MyModal = () => {
   //****************STATE****************//
   const [{ title, page }, setModalSetup ] = useState({ title:"", page: 1 });
   const [ isNextDisabled, setIsNextDisabled ] = useState(false);
+  const { currentUser } = getContextType('AuthContext')
   const { 
     modalData:{ isModalShowing, modalMode }, 
     setModalData, bookingData, setBookingData 
   } = getContextType('ModalContext')
-
   //****************HANDLERS****************//
   const handleBeforeClick = () => {
     if (page == 2) setIsNextDisabled(false)
     setModalSetup({ title, page: page - 1})
   }
   const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     if (page == 1) setIsNextDisabled(true)
+    if (page == 3) {
+      try{
+        await saveADoc(['bookings', currentUser.uid, 'myBookings'], bookingData)
+        /////////GETDATA//////////
+        let dataArr = [];
+        let snap = await getMeDocs(['bookings', currentUser.uid, 'myBookings']);
+        snap.forEach((doc) => dataArr.push({...doc.data(), docID: doc.id}));
+        console.log(dataArr);
+        /////////GETDATA//////////
+        makeAToast('s', 'Reservación Guardada');
+      }catch(error){
+        console.log(error)
+        if (error.code) makeAToast('d', error.code);
+        else makeAToast('d', error.message);
+      }
+    }
     setModalSetup({ title, page: page + 1 })
   }
  
