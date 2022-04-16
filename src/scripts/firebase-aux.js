@@ -1,7 +1,14 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore/lite';
 import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc
+} from 'firebase/firestore/lite';
+import {
+    getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     GoogleAuthProvider,
@@ -32,5 +39,5 @@ export const signServerActions = async(mode, email, password) => {
 }
 
 export const saveADoc = async(pathArr, toBeSavedData) => await addDoc(collection(db, pathArr.join('/')), toBeSavedData)
-    //await setDoc(doc(db, collectionName, userID, 'myBookings', 'nueva'), toBeSavedData);
+export const deleteADoc = async(pathArr, documentID) => await deleteDoc(doc(db, ...pathArr, documentID))
 export const getMeDocs = async(pathArr) => await getDocs(collection(db, pathArr.join('/')))

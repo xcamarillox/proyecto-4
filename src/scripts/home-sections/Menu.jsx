@@ -1,7 +1,7 @@
 import { Dishes } from "./Dishes";
 import Button from "react-bootstrap/Button";
 
-const Menu =  (props) => {
+const Menu =  () => {
     return (
         <div className="menu-container" id="menu">
             <div className="menu-header-footer">

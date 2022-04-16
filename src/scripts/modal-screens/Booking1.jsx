@@ -3,10 +3,8 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
 import { getContextType } from "../context/AppContext"
-import { useState, useEffect, useRef } from "react";
 
-
-const Booking1 =  (props) => {
+const Booking1 =  () => {
   const { bookingData, setBookingData } = getContextType('ModalContext');
 
   let handleChangeOnControl = (e) => {
@@ -32,7 +30,7 @@ const Booking1 =  (props) => {
       <Row>
         <Col>
           <Form.Group className="mb-2" controlId="adultsNumber">
-              <Form.Label>Numero de Adultos (12+):</Form.Label>
+              <Form.Label># de Adultos (12+):</Form.Label>
               <Form.Select aria-label="Default select example" onChange={ handleChangeOnControl } value={ bookingData.adultsNumber }>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -45,7 +43,7 @@ const Booking1 =  (props) => {
         </Col>
         <Col>
           <Form.Group className="mb-2" controlId="kidsNumber">
-              <Form.Label>Numero de Niños (4 - 12):</Form.Label>
+              <Form.Label># de Niños (4 - 12):</Form.Label>
               <Form.Select aria-label="Default select example" onChange={ handleChangeOnControl } value={ bookingData.kidsNumber }>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -59,7 +57,7 @@ const Booking1 =  (props) => {
         </Col>
         <Col>
           <Form.Group className="mb-2" controlId="toddlersNumber">
-              <Form.Label>Numero de Bebés (0 - 3):</Form.Label>
+              <Form.Label># de Bebés (0 - 3):</Form.Label>
               <Form.Select aria-label="Default select example" onChange={ handleChangeOnControl } value={ bookingData.toddlersNumber }>
                 <option value="0">0</option>
                 <option value="1">1</option>

@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import { getContextType } from "../context/AppContext"
 
-const Bookings =  (props) => {
+const Bookings =  () => {
     const { makeABooking } = getContextType('ModalContext');
     let handleBookingClick = () => makeABooking();
     return (

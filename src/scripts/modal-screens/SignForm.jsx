@@ -11,7 +11,7 @@ import { signServerActions } from '../firebase-aux'
 import { makeAToast } from '../toast-maker'
 import { getContextType } from '../context/AppContext';
 
-const SignForm =  (props) => {
+const SignForm =  () => {
   let [isSignUpMode, setIsSignUpMode] = useState(false);
   const { modalData: { isModalShowing, modalMode } , setModalData } = getContextType('ModalContext')
   let handleSignLink = () => setIsSignUpMode(!isSignUpMode);
@@ -47,23 +47,23 @@ const SignForm =  (props) => {
                 <Form.Group className="mb-2 title" controlId="title">
                     <Form.Label>Título</Form.Label>
                     <Form.Select aria-label="Default select example">
-                      <option value="1"></option>
-                      <option value="2">Sr.</option>
-                      <option value="3">Sra.</option>
-                      <option value="4">Srita.</option>
-                      <option value="5">Dr.</option>
+                      <option value=""></option>
+                      <option value="SR.">Sr.</option>
+                      <option value="SRA.">Sra.</option>
+                      <option value="SRITA.">Srita.</option>
+                      <option value="DR.">Dr.</option>
                     </Form.Select>
                 </Form.Group>
               </Col>
               <Col md>
                 <Form.Group className="mb-2" controlId="name">
-                    <Form.Label>Nombre(s)</Form.Label>
+                    <Form.Label>Nombre(s) *</Form.Label>
                     <Form.Control placeholder="Ingresa tu(s) nombre(s)" />
                 </Form.Group>
               </Col>
               <Col md>
                 <Form.Group className="mb-2" controlId="lastName">
-                    <Form.Label>Apellido(s)</Form.Label>
+                    <Form.Label>Apellido(s) *</Form.Label>
                     <Form.Control placeholder="Ingresa tu(s) apellido(s)" />
                 </Form.Group>
               </Col>
@@ -77,7 +77,7 @@ const SignForm =  (props) => {
               </Col>
               <Col md>
                 <Form.Group className="mb-2" controlId="mobileNumber">
-                  <Form.Label>Numero Celular</Form.Label>
+                  <Form.Label>Numero Telefónico *</Form.Label>
                   <Form.Control placeholder="1234567890" />
                 </Form.Group>
               </Col>
@@ -85,8 +85,8 @@ const SignForm =  (props) => {
                 <Form.Group className="mb-2" controlId="lineType">
                     <Form.Label>Tipo de Línea</Form.Label>
                     <Form.Select aria-label="Default select example">
-                      <option value="1">Celular</option>
-                      <option value="2">Terrestre</option>
+                      <option value="celular">Celular</option>
+                      <option value="terrestre">Terrestre</option>
                     </Form.Select>
                 </Form.Group>
               </Col>
@@ -94,25 +94,20 @@ const SignForm =  (props) => {
           </div>
         }
         <Form.Group className="mb-2" controlId="email">
-          <Form.Label>E-mail</Form.Label>
+          <Form.Label>E-mail *</Form.Label>
           <Form.Control type="email" placeholder="Ingresa tu E-mail" ref={emailRef} />
         </Form.Group>
         <Row>
           <Col md>
             <Form.Group className="mb-2" controlId="password">
-              <Form.Label>Contraseña</Form.Label>
+              <Form.Label>Contraseña *</Form.Label>
               <Form.Control type="password" placeholder="Ingresa tu Contraseña" ref={passwordRef} />
             </Form.Group>
-            { !isSignUpMode && 
-              <Form.Group className="mb-2" controlId="rememberMe">
-                <Form.Check type="checkbox" label="Recuerdame" />
-              </Form.Group>
-            }
           </Col>
           { isSignUpMode && 
             <Col md>
               <Form.Group className="mb-2" controlId="passwordConfirm">
-                <Form.Label>Confirma tu Contraseña</Form.Label>
+                <Form.Label>Confirma tu Contraseña *</Form.Label>
                 <Form.Control type="password" placeholder="Confirma tu Contraseña" />
               </Form.Group>
             </Col>

@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
-const ContactUs =  (props) => {
+const ContactUs =  () => {
     return (
         <footer className="contactus-container" id="contact-us">
             <div className="contactus-header">

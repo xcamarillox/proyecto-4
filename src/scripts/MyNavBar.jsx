@@ -1,4 +1,6 @@
 
+import { useState, useEffect } from "react";
+import { HashLink } from 'react-router-hash-link';
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -7,16 +9,15 @@ import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
-import { HashLink } from 'react-router-hash-link';
-import { useState, useEffect } from "react";
-
 import { getContextType } from "./context/AppContext"
 import { signServerActions } from './firebase-aux'
 import { makeAToast } from './toast-maker'
 
-const MyNavBar =  (props) => {
-
+const MyNavBar =  () => {
+  const { makeASign, showBookingsList } = getContextType('ModalContext');
+  const { currentUser } = getContextType('AuthContext');
   let [navbarBgColor, setNavbarBgColor] = useState("");
+
   useEffect(() => {
     window.addEventListener("scroll", function(){
       if (window.scrollY > 0) setNavbarBgColor("dark");
@@ -24,9 +25,8 @@ const MyNavBar =  (props) => {
     })
   }, [])
 
-  const { makeASign } = getContextType('ModalContext');
-  const { currentUser } = getContextType('AuthContext');
   let handleShowModal = () => makeASign();
+  let showBookingsHandle = () => showBookingsList()
   let closeSessionHandle = async () => {
     try{
       await signServerActions('signOut')
@@ -37,6 +37,7 @@ const MyNavBar =  (props) => {
       else makeAToast('d', error.message);
     }
   };
+
   return (
     <header>
       <Navbar  className="navbar-animation" collapseOnSelect fixed="top" bg={ navbarBgColor } variant="dark" expand="lg">
@@ -65,7 +66,7 @@ const MyNavBar =  (props) => {
               <NavDropdown title={<FontAwesomeIcon icon={ faCircleUser } className="fa-xl" />} id="collasible-nav-dropdown">
                 <NavDropdown.Item>Mi Perfil</NavDropdown.Item>
                 <NavDropdown.Item>Mis pedidos</NavDropdown.Item>
-                <NavDropdown.Item as={ Button }  onClick={closeSessionHandle} >Mis reservaciones</NavDropdown.Item>
+                <NavDropdown.Item as={ Button }  onClick={showBookingsHandle} >Mis reservaciones</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={ Button }  onClick={closeSessionHandle} >Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>

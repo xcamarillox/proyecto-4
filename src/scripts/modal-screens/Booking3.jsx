@@ -2,11 +2,9 @@ import Form from "react-bootstrap/Form"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
-import { useState, useEffect, useRef } from "react";
-
 import { getContextType } from "../context/AppContext"
 
-const Booking3 =  (props) => {
+const Booking3 =  () => {
   const { bookingData, setBookingData } = getContextType('ModalContext');
   let handleChangeOnControl = (e) => {
     let currentBooking = { ...bookingData };
@@ -21,22 +19,22 @@ const Booking3 =  (props) => {
               <Form.Label>Título</Form.Label>
               <Form.Select aria-label="Default select example" value={ bookingData.title } onChange={ handleChangeOnControl }>
                 <option value=""></option>
-                <option value="sr">Sr.</option>
-                <option value="sra">Sra.</option>
-                <option value="srita">Srita.</option>
-                <option value="dr">Dr.</option>
+                <option value="SR.">Sr.</option>
+                <option value="SRA.">Sra.</option>
+                <option value="SRITA.">Srita.</option>
+                <option value="DR.">Dr.</option>
               </Form.Select>
           </Form.Group>
         </Col>
-        <Col>
+        <Col md>
           <Form.Group className="mb-2" controlId="name">
-              <Form.Label>Nombre(s)</Form.Label>
-              <Form.Control placeholder="Ingresa tu(s) nombre(s)" value={ bookingData.name } onChange={ handleChangeOnControl } />
+              <Form.Label>Nombre(s) *</Form.Label>
+              <Form.Control placeholder="Ingresa tu(s) nombre(s)"  value={ bookingData.name } onChange={ handleChangeOnControl } />
           </Form.Group>
         </Col>
-        <Col>
+        <Col md>
           <Form.Group className="mb-2" controlId="lastName">
-              <Form.Label>Apellido(s)</Form.Label>
+              <Form.Label>Apellido(s) *</Form.Label>
               <Form.Control placeholder="Ingresa tu(s) apellidos(s)" value={ bookingData.lastName } onChange={ handleChangeOnControl } />
           </Form.Group>
         </Col>
@@ -48,13 +46,13 @@ const Booking3 =  (props) => {
             <Form.Control placeholder="+52"value={ bookingData.countryCode } onChange={ handleChangeOnControl } />
           </Form.Group>
         </Col>
-        <Col>
+        <Col md>
           <Form.Group className="mb-2" controlId="mobileNumber">
-            <Form.Label>Numero Celular</Form.Label>
+            <Form.Label>Numero Telefónico *</Form.Label>
             <Form.Control placeholder="1234567890" value={ bookingData.mobileNumber } onChange={ handleChangeOnControl } />
           </Form.Group>
         </Col>
-        <Col>
+        <Col md>
           <Form.Group className="mb-2" controlId="tipoLinea">
               <Form.Label>Tipo de Línea</Form.Label>
               <Form.Select aria-label="Default select example" value={ bookingData.tipoLinea } onChange={ handleChangeOnControl }>

@@ -1,17 +1,17 @@
-import {useState, createContext, useContext, useEffect} from 'react'
-import {auth} from "../firebase-aux"
-import { onAuthStateChanged } from 'firebase/auth'
-import { makeAToast } from '../toast-maker'
+import { useState, createContext, useContext, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 
-export const ModalContext = createContext() // createContext({ modalData: {}, setModalData: ()=>{} })
-export const AuthContext = createContext()
+import { makeAToast } from '../toast-maker';
+import { auth } from "../firebase-aux";
 
+export const ModalContext = createContext();
+export const AuthContext = createContext();
 export function getContextType(type = 'no-context') {
   let context; 
-  if (type == "ModalContext") context = useContext(ModalContext)
-  else if (type == "AuthContext") context = useContext(AuthContext)
-  if (!context) throw new Error(`The context ${type} must be used within AppProvider`)
-  return context
+  if (type == "ModalContext") context = useContext(ModalContext);
+  else if (type == "AuthContext") context = useContext(AuthContext);
+  if (!context) throw new Error(`The context ${type} must be used within AppProvider`);
+  return context;
 }
 
 export function AppProvider({children}) {
@@ -30,11 +30,9 @@ export function AppProvider({children}) {
       setModalData({ isModalShowing: !modalData.isModalShowing, modalMode: mode })
       if (!currentUser) makeAToast('i', 'Accede y reserva');
     }
-
-    const makeASign = () => {
-      setModalData({ isModalShowing: !modalData.isModalShowing, modalMode: "sign" });
-    }
-
+    const makeASign = () => setModalData({ isModalShowing: !modalData.isModalShowing, modalMode: "sign" });
+    const showBookingsList = () => setModalData({ isModalShowing: !modalData.isModalShowing, modalMode: "listBookings" });
+    
     //**************** PROVIDED DATA *******************//
     const modalContextProviderValue = {
       modalData, 
@@ -42,7 +40,8 @@ export function AppProvider({children}) {
       bookingData,
       setBookingData,
       makeABooking,
-      makeASign
+      makeASign,
+      showBookingsList
     }
     const authContextProviderValue = {
       currentUser

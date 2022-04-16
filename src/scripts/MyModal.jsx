@@ -1,13 +1,17 @@
+import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import SignForm from './modal-screens/SignForm';
-import { useState, useEffect } from "react";
-import Booking1 from './modal-screens/Booking1.jsx';
-import Booking2 from './modal-screens/Booking2.jsx';
-import Booking3 from './modal-screens/Booking3.jsx';
+
 import { getContextType } from "./context/AppContext";
 import { saveADoc, getMeDocs } from "./firebase-aux";
 import { makeAToast } from "./toast-maker";
+
+import Booking1 from './modal-screens/Booking1.jsx';
+import Booking2 from './modal-screens/Booking2.jsx';
+import Booking3 from './modal-screens/Booking3.jsx';
+import Booking4 from './modal-screens/Warning.jsx';
+import ListBookings from './modal-screens/ListBookings';
 
 const MyModal = () => {
   //****************STATE****************//
@@ -18,33 +22,7 @@ const MyModal = () => {
     modalData:{ isModalShowing, modalMode }, 
     setModalData, bookingData, setBookingData 
   } = getContextType('ModalContext')
-  //****************HANDLERS****************//
-  const handleBeforeClick = () => {
-    if (page == 2) setIsNextDisabled(false)
-    setModalSetup({ title, page: page - 1})
-  }
-  const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
-  const handleNextClick = async () => {
-    if (page == 1) setIsNextDisabled(true)
-    if (page == 3) {
-      try{
-        await saveADoc(['bookings', currentUser.uid, 'myBookings'], bookingData)
-        /////////GETDATA//////////
-        let dataArr = [];
-        let snap = await getMeDocs(['bookings', currentUser.uid, 'myBookings']);
-        snap.forEach((doc) => dataArr.push({...doc.data(), docID: doc.id}));
-        console.log(dataArr);
-        /////////GETDATA//////////
-        makeAToast('s', 'Reservación Guardada');
-      }catch(error){
-        console.log(error)
-        if (error.code) makeAToast('d', error.code);
-        else makeAToast('d', error.message);
-      }
-    }
-    setModalSetup({ title, page: page + 1 })
-  }
- 
+
   //****************LIFECYCLE****************//
   useEffect(() => {
     setBookingData({ 
@@ -53,6 +31,7 @@ const MyModal = () => {
       kidsNumber: 0, 
       toddlersNumber: 0,
       time: [],
+      title:"",
       name:"",
       lastName:"",
       countryCode:"",
@@ -65,7 +44,28 @@ const MyModal = () => {
     else if (modalMode == "listBookings") setModalSetup({ title:"Lista de Reservaciones", page: 1 }) 
     else if (modalMode == "sign") setModalSetup({ title:"", page: 1 }) 
   }, [isModalShowing]);
-
+  
+  //****************HANDLERS****************//
+  const handleBeforeClick = () => {
+    if (page == 2) setIsNextDisabled(false)
+    setModalSetup({ title, page: page - 1})
+  }
+  const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
+  const handleNextClick = async () => {
+    if (page == 1 && modalMode == "createBooking") setIsNextDisabled(true)
+    if (page == 4 && modalMode == "createBooking") {
+      try{
+        await saveADoc(['bookings', currentUser.uid, 'myBookings'], bookingData)
+        makeAToast('s', 'Reservación Guardada');
+        handleClose();
+      }catch(error){
+        console.log(error)
+        if (error.code) makeAToast('d', error.code);
+        else makeAToast('d', error.message);
+      }
+    }else setModalSetup({ title, page: page + 1 })
+  }
+ 
   return (
       <Modal
         size="xl"
@@ -86,18 +86,21 @@ const MyModal = () => {
           { modalMode == "createBooking" && page==1 && <Booking1/> }
           { modalMode == "createBooking" && page==2 && <Booking2 setIsNextDisabled={ setIsNextDisabled } /> }
           { modalMode == "createBooking" && page==3 && <Booking3/> }
-          { modalMode == "listBookings" && <Booking1/> }
+          { modalMode == "createBooking" && page==4 && <Booking4/> }
+          { modalMode == "listBookings" && <ListBookings/> }
         </Modal.Body>
         { modalMode != "sign" &&
-            <Modal.Footer className="justify-content-between">
-              { modalMode == "createBooking" &&
+            <Modal.Footer className={page !=1 && 'justify-content-between'}>
+              { (modalMode == "createBooking"  && page>1) &&
                 <div>
-                  <Button className="btn btn-secondary" onClick={handleBeforeClick} disabled={page < 2}>&lt;&lt; Anterior</Button>
+                  <Button className="btn btn-secondary" onClick={handleBeforeClick}>&lt;&lt; Anterior</Button>
                 </div>
               }
               <div>
                 <Button onClick={handleClose} className="btn btn-secondary me-3">Cerrar</Button>
-                <Button onClick={handleNextClick} className="btn btn-primary" disabled={isNextDisabled}>Continuar</Button>
+                { modalMode != "listBookings" &&
+                  <Button onClick={handleNextClick} className="btn btn-primary" disabled={isNextDisabled}>{page !=4  ? 'Continuar': 'Aceptar'}</Button>
+                }
               </div>
             </Modal.Footer>
         }
