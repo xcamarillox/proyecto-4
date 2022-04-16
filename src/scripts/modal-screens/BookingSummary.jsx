@@ -17,9 +17,14 @@ const BookingSummary = () => {
                     {bookingData.dateSelection} {bookingData.time[0]}:{bookingData.time[1]}
                 </Card.Header>
                 <Card.Body>
-                 <Card.Title>{bookingData.title} {bookingData.name} {bookingData.lastName} [{bookingData.countryCode} {bookingData.mobileNumber}]</Card.Title>
+                 <Card.Title>
+                     {bookingData.title} {bookingData.name} {bookingData.lastName} [{bookingData.countryCode} {bookingData.mobileNumber}]
+                 </Card.Title>
                  <Card.Text>
                     {bookingData.adultsNumber} Adulto(s), {bookingData.adultsNumber} Niño(s), {bookingData.adultsNumber} Bebé(s).
+                 </Card.Text>
+                 <Card.Text>
+                    {bookingData.comments}
                  </Card.Text>
                 </Card.Body>
             </Card>   

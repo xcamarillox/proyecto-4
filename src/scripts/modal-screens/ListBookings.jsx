@@ -58,9 +58,14 @@ export const ListBookings = () => {
                         </div>
                     </Card.Header>
                     <Card.Body>
-                     <Card.Title>{data.title} {data.name} {data.lastName} [{data.countryCode} {data.mobileNumber}]</Card.Title>
+                     <Card.Title>
+                         {data.title} {data.name} {data.lastName} [{data.countryCode} {data.mobileNumber}]
+                     </Card.Title>
                      <Card.Text>
                         {data.adultsNumber} Adulto(s), {data.adultsNumber} Niño(s), {data.adultsNumber} Bebé(s).
+                     </Card.Text>
+                     <Card.Text> 
+                        {data.comments}
                      </Card.Text>
                     </Card.Body>
                 </Card>   
