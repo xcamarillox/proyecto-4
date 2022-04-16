@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import { getContextType } from "../context/AppContext"
 
 
-const Warning = () => {
+const BookingSummary = () => {
     const { bookingData, setBookingData } = getContextType('ModalContext');
 
     return (
@@ -44,5 +44,5 @@ const Warning = () => {
     )
 }
 
-export default Warning
+export default BookingSummary
 

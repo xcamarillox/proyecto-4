@@ -10,7 +10,7 @@ import { makeAToast } from "./toast-maker";
 import Booking1 from './modal-screens/Booking1.jsx';
 import Booking2 from './modal-screens/Booking2.jsx';
 import Booking3 from './modal-screens/Booking3.jsx';
-import Booking4 from './modal-screens/Warning.jsx';
+import BookingSummary from './modal-screens/BookingSummary.jsx';
 import ListBookings from './modal-screens/ListBookings';
 
 const MyModal = () => {
@@ -86,7 +86,7 @@ const MyModal = () => {
           { modalMode == "createBooking" && page==1 && <Booking1/> }
           { modalMode == "createBooking" && page==2 && <Booking2 setIsNextDisabled={ setIsNextDisabled } /> }
           { modalMode == "createBooking" && page==3 && <Booking3/> }
-          { modalMode == "createBooking" && page==4 && <Booking4/> }
+          { modalMode == "createBooking" && page==4 && <BookingSummary/> }
           { modalMode == "listBookings" && <ListBookings/> }
         </Modal.Body>
         { modalMode != "sign" &&
