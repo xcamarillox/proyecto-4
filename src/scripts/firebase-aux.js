@@ -8,12 +8,13 @@ import {
     doc
 } from 'firebase/firestore/lite';
 import {
-    getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    sendPasswordResetEmail,
     GoogleAuthProvider,
     signInWithPopup,
-    signOut
+    signOut,
+    getAuth,
 } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -35,6 +36,7 @@ export const signServerActions = async(mode, email, password) => {
     if (mode == "signUp") await createUserWithEmailAndPassword(auth, email, password)
     else if (mode == "signIn") await signInWithEmailAndPassword(auth, email, password)
     else if (mode == "signGoogle") await signInWithPopup(auth, googleProvider);
+    else if (mode == "signForgot") await sendPasswordResetEmail(auth, email)
     else if (mode == "signOut") await signOut(auth)
 }
 

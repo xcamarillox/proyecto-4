@@ -7,28 +7,35 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import googleIcon from "../../../assets/google_icon.png"
+
 import { signServerActions } from '../firebase-aux'
 import { makeAToast } from '../toast-maker'
 import { getContextType } from '../context/AppContext';
 
 const SignForm =  () => {
-  let [isSignUpMode, setIsSignUpMode] = useState(false);
+  let [modalSignMode, setModalSignMode] = useState('signIn');
   const { modalData: { isModalShowing, modalMode } , setModalData } = getContextType('ModalContext')
-  let handleSignLink = () => setIsSignUpMode(!isSignUpMode);
-
   const emailRef = useRef();
   const passwordRef = useRef();
-
+  
+  let handleSignLink = () => modalSignMode=='signIn' ? setModalSignMode('signUp') : setModalSignMode('signIn');
+  const handleForgotLink= async () => setModalSignMode('signForgot');
   const handleSignAction= async (e) => {
     e.preventDefault();
-    let signMode;
-    if (e.type == "submit")  signMode = isSignUpMode ? 'signUp' :  'signIn';
-    else signMode = 'signGoogle';
-    const toastText = isSignUpMode ? 'Usuario creado. Accede.' :  'Bienvenido!!'
+    let toastText;
+    if (modalSignMode == 'signUp') toastText = 'Usuario creado. Accede.';
+    else if (modalSignMode == 'signIn') toastText =  'Bienvenido!!';
+    else if (modalSignMode == 'signForgot') toastText =  'Correo de recuperación enviado!! Revisa tu correo';
+    let serverParams = [
+      e.type == "submit" ? modalSignMode : 'signGoogle', 
+      emailRef.current.value, 
+      modalSignMode != 'signForgot' ? passwordRef.current.value : ''
+    ]
     try{
-      await signServerActions(signMode, emailRef.current.value, passwordRef.current.value)
+      await signServerActions(...serverParams)
       makeAToast('s', toastText);
-      if (isSignUpMode) setIsSignUpMode(!isSignUpMode);
+      if (modalSignMode != 'signIn' ) setModalSignMode('signIn');
       else setModalData({ isModalShowing: false, modalMode });
     }catch(error){
       console.log(error)
@@ -39,8 +46,12 @@ const SignForm =  () => {
 
   return (
       <Form onSubmit={ handleSignAction }>
-        <h3 className="text-center">{isSignUpMode ? "REGISTRO" : "ACCESO"}</h3>
-        { isSignUpMode && 
+        <h3 className="text-center"  style={{ marginBottom: 50 }}>
+          { modalSignMode=='signIn'  && "ACCEDE" }
+          { modalSignMode=='signUp'  && "REGISTRO" }
+          { modalSignMode=='signForgot'  && "RECUPERACIÓN DE CONTRASEÑA" }
+        </h3> 
+        { modalSignMode=='signUp' && 
           <div>
             <Row>
               <Col md>
@@ -94,17 +105,19 @@ const SignForm =  () => {
           </div>
         }
         <Form.Group className="mb-2" controlId="email">
-          <Form.Label>E-mail *</Form.Label>
+          <Form.Label>E-mail { modalSignMode=='signUp'? '*' : ''}</Form.Label>
           <Form.Control type="email" placeholder="Ingresa tu E-mail" ref={emailRef} />
         </Form.Group>
         <Row>
-          <Col md>
-            <Form.Group className="mb-2" controlId="password">
-              <Form.Label>Contraseña *</Form.Label>
-              <Form.Control type="password" placeholder="Ingresa tu Contraseña" ref={passwordRef} />
-            </Form.Group>
-          </Col>
-          { isSignUpMode && 
+          { modalSignMode!='signForgot' &&
+            <Col md>
+              <Form.Group className="mb-2" controlId="password">
+                <Form.Label>Contraseña { modalSignMode=='signUp'? '*' : ''}</Form.Label>
+                <Form.Control type="password" placeholder="Ingresa tu Contraseña" ref={passwordRef} />
+              </Form.Group>
+            </Col>
+          }
+          { modalSignMode=='signUp' &&
             <Col md>
               <Form.Group className="mb-2" controlId="passwordConfirm">
                 <Form.Label>Confirma tu Contraseña *</Form.Label>
@@ -113,19 +126,36 @@ const SignForm =  () => {
             </Col>
           }
         </Row>
+        {modalSignMode=='signIn' &&
+          <p className="text-center">
+             <Link to='#' onClick={ handleForgotLink }>Olvidaste tu contraseña?</Link>
+          </p>
+        }
         <div className="d-grid gap-2">
           <Button type="submit" variant="primary">
-            {isSignUpMode ? "Registrame" : "Acceder"}
+            {modalSignMode=='signIn' && "Acceder"}
+            {modalSignMode=='signUp' && "Registrarme"}
+            {modalSignMode=='signForgot' && "Recuperar"}
           </Button>
-          {!isSignUpMode &&
-            <Button variant="btn btn-outline-secondary" onClick={ handleSignAction }>
-              Accede con Google
-            </Button>
+          <p className="text-center">
+            {modalSignMode=='signIn' && "Aún sin cuenta? "}
+            {modalSignMode=='signUp' && "Ya registrado? "}
+            {modalSignMode=='signForgot' && "Falsa Alarma? "}
+            <Link to='#' onClick={handleSignLink}>
+              {modalSignMode=='signIn' && "Crea una acá"}
+              {modalSignMode=='signUp' && "Accede acá"}
+              {modalSignMode=='signForgot' && "Accede acá"}
+            </Link>
+          </p>
+          {modalSignMode=='signIn' &&
+            <div className="d-grid gap-2 text-center">
+              Tambien puedes acceder con:
+              <Button variant="btn btn-outline-secondary" onClick={ handleSignAction }>
+                <img className="" src={googleIcon} alt=""/> Google
+              </Button>
+            </div>
           }
         </div>
-        <p className="forgot-password text-end">
-          {isSignUpMode ? "Ya registrado? " : "Aún sin cuenta? "}<Link to='#' onClick={handleSignLink}>{isSignUpMode ? "Accede" : "Crea una"}</Link>
-        </p>
       </Form>
   )
 }
