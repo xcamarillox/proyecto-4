@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 
 import { crudServerActions } from "../firebase-aux";
-import { makeAToast } from "../toast-maker";
+import { makeAToast } from "../modal-screens/toast-maker";
 import { getContextType } from "../context/AppContext";
 
 export const ListBookings = () => {

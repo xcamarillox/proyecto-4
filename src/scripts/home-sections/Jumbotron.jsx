@@ -1,7 +1,5 @@
 import Button from "react-bootstrap/Button";
 import { getContextType } from "../context/AppContext"
-import { makeAToast } from '../toast-maker'
-
 
 const Jumbotron =  () => {
     const { makeABooking } = getContextType('ModalContext');

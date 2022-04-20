@@ -11,15 +11,17 @@ En el Backend se utiliza **Firebase/Firestore**, servicio de **Google** que resu
 
 ### Algunos objetivos técnicos que se buscan son los siguientes:
 
- - Una sección o página sobre información principal del restaurante.
- - Una sección de formulario de contacto.
- - Una sección de datos de ubicación y correo electrónico.
+ - Una sección o página sobre la información principal del restaurante.
+ - Una sección de datos de contacto, ubicación y correo electrónico.
  - Un componente que permita reservar una mesa en una hora y fecha específica para un usuario.
  - Un componente que incluya el menú completo del restaurante.
+ - Un componente que enliste las reservaciones del usuario.
  - Una sección de blog con algunos artículos enlistados.
- - Uso de props con React.
- - Uso de los servicios de la **Firestore** (Lectura y escritura de datos).
  - Componentes bajo **"Hooks"**. (Se utilizan useState, useEffect, useContext y useRef).
+ - Uso de props con React.
+ - Uso de los servicios de autenticación de **Firebase** (sign Up, sign In y sign Out).
+ - Se añade la funcionalidad de autenticación con Google y recuperación de cuenta con correo.
+ - Uso de los servicios de la **Firestore** (CRUD de datos).
  - CSS para el aspecto visual de componentes.
  - Adaptado a móviles.
 
@@ -41,17 +43,19 @@ In the Backend, **Firebase/Firestore** is used, a **Google** service that is an 
 
 ### Some technical objectives that are sought are the following:
 
- - A section or page on the main information of the restaurant.
- - A contact form section.
- - A section of location data and email.
- - A component that allows you to reserve a table at a specific time and date for a user.
- - A component that includes the full menu of the restaurant.
- - A blog section with some articles listed.
- - Use of props with React.
- - Use of **Firestore** services (Read & Write of data).
- - Components under **"Hooks"**. (useState, useEffect, useContext, and useRef are used.)
- - CSS for the visual appearance of components.
- - Adapted to mobiles.
+- A section or page about the main information of the restaurant.
+- A section of contact information, location and email.
+- A component that allows you to reserve a table at a specific time and date for a user.
+- A component that includes the full menu of the restaurant.
+- A component that lists the user's reservations.
+- A blog section with some articles listed.
+- Components under **"Hooks"**. (useState, useEffect, useContext, and useRef are used.)
+- Use of props with React.
+- Use of **Firebase** authentication services (sign Up, sign In and sign Out).
+- The functionality of authentication with Google and account recovery with email is added.
+- Use of **Firestore** services (data CRUD).
+- CSS for the visual appearance of components.
+- Adapted to mobiles.
 
 
 - [live demo](https://xcamarillox.github.io/proyecto-4/index.html)

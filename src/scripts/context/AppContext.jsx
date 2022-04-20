@@ -1,7 +1,7 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 
-import { makeAToast } from '../toast-maker';
+import { makeAToast } from '../modal-screens/toast-maker';
 import { auth } from "../firebase-aux";
 
 export const ModalContext = createContext();

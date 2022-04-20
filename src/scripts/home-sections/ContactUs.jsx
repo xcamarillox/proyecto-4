@@ -7,8 +7,8 @@ const ContactUs =  () => {
         <footer className="contactus-container" id="contact-us">
             <div className="contactus-header">
                     <h3>Dónde encontrarnos</h3>
-                    <p>Plaza Fiesta San Agustín.<br />
-                    Local 54 Tercer Piso<br />
+                    <p>Plaza Fiesta San Agustín,<br />
+                    Local 54, Tercer Piso.<br />
                     Av. Lázaro Cárdenas #222 Col. Residencial San Agustín, San Pedro Garza García, Nuevo León, México.</p>
             </div>
             <iframe 
@@ -25,7 +25,7 @@ const ContactUs =  () => {
                         <h4>Síguenos</h4>
                         <p><a href="https://www.instagram.com/">Instagram</a></p>
                         <h4>Horario</h4>
-                        <p>Lunes a Domingo de 12AM a 12PM</p>
+                        <p>Lunes a Domingo de 12PM a 12AM</p>
                    </div>
                    <div className="contactus-col">
                        <h4 className="main">Mensaje Exprés</h4>

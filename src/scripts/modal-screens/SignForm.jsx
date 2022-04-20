@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import googleIcon from "../../../assets/google_icon.png"
 
 import { signServerActions } from '../firebase-aux'
-import { makeAToast } from '../toast-maker'
+import { makeAToast } from '../modal-screens/toast-maker'
 import { getContextType } from '../context/AppContext';
 
 const SignForm =  () => {

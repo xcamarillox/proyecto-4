@@ -5,7 +5,7 @@ import SignForm from './modal-screens/SignForm';
 
 import { getContextType } from "./context/AppContext";
 import { crudServerActions } from "./firebase-aux";
-import { makeAToast } from "./toast-maker";
+import { makeAToast } from "./modal-screens/toast-maker";
 
 import Booking1 from './modal-screens/Booking1.jsx';
 import Booking2 from './modal-screens/Booking2.jsx';

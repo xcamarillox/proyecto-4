@@ -11,7 +11,7 @@ import { faUser, faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
 import { getContextType } from "./context/AppContext"
 import { signServerActions } from './firebase-aux'
-import { makeAToast } from './toast-maker'
+import { makeAToast } from './modal-screens/toast-maker'
 
 const MyNavBar =  () => {
   const { makeASign, showBookingsList } = getContextType('ModalContext');
