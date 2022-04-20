@@ -1,6 +1,5 @@
 
 import { useState, useRef } from "react";
-
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -33,7 +32,7 @@ const SignForm =  () => {
       modalSignMode != 'signForgot' ? passwordRef.current.value : ''
     ]
     try{
-      await signServerActions(...serverParams)
+      let response = await signServerActions(...serverParams);
       makeAToast('s', toastText);
       if (modalSignMode != 'signIn' ) setModalSignMode('signIn');
       else setModalData({ isModalShowing: false, modalMode });

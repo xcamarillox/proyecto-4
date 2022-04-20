@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import SignForm from './modal-screens/SignForm';
 
 import { getContextType } from "./context/AppContext";
-import { saveADoc, getMeDocs } from "./firebase-aux";
+import { crudServerActions } from "./firebase-aux";
 import { makeAToast } from "./toast-maker";
 
 import Booking1 from './modal-screens/Booking1.jsx';
@@ -19,31 +19,34 @@ const MyModal = () => {
   const [ isNextDisabled, setIsNextDisabled ] = useState(false);
   const { currentUser } = getContextType('AuthContext')
   const { 
-    modalData:{ isModalShowing, modalMode }, 
+    modalData:{ isModalShowing, modalMode, initObj }, 
     setModalData, bookingData, setBookingData 
   } = getContextType('ModalContext')
 
   //****************LIFECYCLE****************//
   useEffect(() => {
-    setBookingData({ 
-      dateSelection: new Date().toISOString().split('T')[0],
-      adultsNumber: 1, 
-      kidsNumber: 0, 
-      toddlersNumber: 0,
-      time: [],
-      title:"",
-      name:"",
-      lastName:"",
-      countryCode:"",
-      mobileNumber:"",
-      tipoLinea:'celular',
-      comments:""
-    });
+    if (initObj)
+      setBookingData(initObj)
+    else
+      setBookingData({ 
+        dateSelection: new Date().toISOString().split('T')[0],
+        adultsNumber: 1, 
+        kidsNumber: 0, 
+        toddlersNumber: 0,
+        time: [],
+        title:"",
+        name:"",
+        lastName:"",
+        countryCode:"",
+        mobileNumber:"",
+        tipoLinea:'celular',
+        comments:""
+      });
     setIsNextDisabled(false)
     if (modalMode == "createBooking") setModalSetup({ title:"Nueva Reservación", page: 1 })
     else if (modalMode == "listBookings") setModalSetup({ title:"Lista de Reservaciones", page: 1 }) 
     else if (modalMode == "sign") setModalSetup({ title:"", page: 1 }) 
-  }, [isModalShowing]);
+  }, [isModalShowing, modalMode]);
   
   //****************HANDLERS****************//
   const handleBeforeClick = () => {
@@ -55,8 +58,14 @@ const MyModal = () => {
     if (page == 1 && modalMode == "createBooking") setIsNextDisabled(true)
     if (page == 4 && modalMode == "createBooking") {
       try{
-        await saveADoc(['bookings', currentUser.uid, 'myBookings'], bookingData)
-        makeAToast('s', 'Reservación Guardada');
+        if (bookingData.docID) 
+        {
+          await crudServerActions('updateADoc',['bookings', currentUser.uid, 'myBookings'], [bookingData.docID, bookingData]);
+          makeAToast('s', 'Reservación Actualizada');
+        } else {
+          await crudServerActions('saveADoc',['bookings', currentUser.uid, 'myBookings'], bookingData);
+          makeAToast('s', 'Reservación Guardada');
+        }
         handleClose();
       }catch(error){
         console.log(error)

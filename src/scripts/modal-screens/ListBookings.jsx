@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 
-import { getMeDocs, deleteADoc } from "../firebase-aux";
+import { crudServerActions } from "../firebase-aux";
 import { makeAToast } from "../toast-maker";
 import { getContextType } from "../context/AppContext";
 
@@ -13,12 +14,13 @@ export const ListBookings = () => {
     let [bookingsArr, setBookingsArr] = useState([])
     let [isNeededRetrieveBookings, setIsNeededRetrieveBookings] = useState(true)
     const { currentUser } = getContextType('AuthContext')
+    const { makeABooking } = getContextType('ModalContext');
     
     useEffect( async () =>  {
         if (isNeededRetrieveBookings){
             try{
                 let dataArr = [];
-                let snap = await getMeDocs(['bookings', currentUser.uid, 'myBookings']);
+                let snap = await crudServerActions('getMeDocs',['bookings', currentUser.uid, 'myBookings']);
                 snap.forEach((doc) => dataArr.push({...doc.data(), docID: doc.id}));
                 setBookingsArr(dataArr)
                 setIsNeededRetrieveBookings(false);
@@ -33,7 +35,7 @@ export const ListBookings = () => {
     let handleEraseClick = async (e) => {
         try{
             let index= e.currentTarget.dataset.idx;
-            await deleteADoc(['bookings', currentUser.uid, 'myBookings'], bookingsArr[index].docID);
+            await crudServerActions('deleteADoc',['bookings', currentUser.uid, 'myBookings'], bookingsArr[index].docID);
             setIsNeededRetrieveBookings(true);
             makeAToast('s', 'Reservación Borrada');
         }catch(error){
@@ -42,7 +44,11 @@ export const ListBookings = () => {
             else makeAToast('d', error.message);
         }
     }
-
+    let handleUpdateClick = (e) => {
+        let index= e.currentTarget.dataset.idx;
+        console.log(bookingsArr[index])
+        makeABooking(bookingsArr[index]);
+    }
     return (
         <>
             {bookingsArr.length>0 && bookingsArr.map((data, index) => (
@@ -51,18 +57,21 @@ export const ListBookings = () => {
                         <div>
                             {data.dateSelection} {data.time[0]}:{data.time[1]}
                         </div>
-                        <div>
-                            <Button onClick={ handleEraseClick } data-idx={index} variant="secondary">
-                                <FontAwesomeIcon icon={ faTrash } />
+                        <ButtonGroup aria-label="Basic example">
+                            <Button variant="secondary" onClick={ handleUpdateClick } data-idx={index} >
+                                <FontAwesomeIcon icon={ faPencil } />
                             </Button>
-                        </div>
+                            <Button variant="secondary" onClick={ handleEraseClick } data-idx={index} >
+                            <FontAwesomeIcon icon={ faTrash } />
+                            </Button>
+                        </ButtonGroup>
                     </Card.Header>
                     <Card.Body>
                      <Card.Title>
                          {data.title} {data.name} {data.lastName} [{data.countryCode} {data.mobileNumber}]
                      </Card.Title>
                      <Card.Text>
-                        {data.adultsNumber} Adulto(s), {data.adultsNumber} Niño(s), {data.adultsNumber} Bebé(s).
+                        {data.adultsNumber} Adulto(s), {data.kidsNumber} Niño(s), {data.toddlersNumber} Bebé(s).
                      </Card.Text>
                      <Card.Text> 
                         {data.comments}

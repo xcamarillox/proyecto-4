@@ -11,7 +11,7 @@ const BookingSummary = () => {
     <>
             <Card style={{marginBottom: 20}}>
                 <Card.Header as="h5">
-                    RESUMEN:
+                    RESUMEN
                 </Card.Header>
                 <Card.Header as="h5">
                     {bookingData.dateSelection} {bookingData.time[0]}:{bookingData.time[1]}
@@ -21,7 +21,7 @@ const BookingSummary = () => {
                      {bookingData.title} {bookingData.name} {bookingData.lastName} [{bookingData.countryCode} {bookingData.mobileNumber}]
                  </Card.Title>
                  <Card.Text>
-                    {bookingData.adultsNumber} Adulto(s), {bookingData.adultsNumber} Niño(s), {bookingData.adultsNumber} Bebé(s).
+                    {bookingData.adultsNumber} Adulto(s), {bookingData.kidsNumber} Niño(s), {bookingData.toddlersNumber} Bebé(s).
                  </Card.Text>
                  <Card.Text>
                     {bookingData.comments}

@@ -5,6 +5,7 @@ import {
     addDoc,
     getDocs,
     deleteDoc,
+    setDoc,
     doc
 } from 'firebase/firestore/lite';
 import {
@@ -27,19 +28,22 @@ const firebaseConfig = {
     measurementId: "G-DB28FNHN1Y"
 };
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider;
 
 export const signServerActions = async(mode, email, password) => {
-    if (mode == "signUp") await createUserWithEmailAndPassword(auth, email, password)
-    else if (mode == "signIn") await signInWithEmailAndPassword(auth, email, password)
-    else if (mode == "signGoogle") await signInWithPopup(auth, googleProvider);
-    else if (mode == "signForgot") await sendPasswordResetEmail(auth, email)
-    else if (mode == "signOut") await signOut(auth)
+    if (mode == "signUp") return await createUserWithEmailAndPassword(auth, email, password)
+    else if (mode == "signIn") return await signInWithEmailAndPassword(auth, email, password)
+    else if (mode == "signGoogle") return await signInWithPopup(auth, googleProvider);
+    else if (mode == "signForgot") return await sendPasswordResetEmail(auth, email)
+    else if (mode == "signOut") return await signOut(auth)
 }
 
-export const saveADoc = async(pathArr, toBeSavedData) => await addDoc(collection(db, pathArr.join('/')), toBeSavedData)
-export const deleteADoc = async(pathArr, documentID) => await deleteDoc(doc(db, ...pathArr, documentID))
-export const getMeDocs = async(pathArr) => await getDocs(collection(db, pathArr.join('/')))
+export const crudServerActions = async(mode, pathArr, modeArgument) => {
+    if (mode == "saveADoc") return await addDoc(collection(db, pathArr.join('/')), modeArgument) // modeArgument = toBeSavedData
+    else if (mode == "deleteADoc") return await deleteDoc(doc(db, ...pathArr, modeArgument)) // modeArgument = documentID
+    else if (mode == "updateADoc") return await setDoc(doc(db, ...pathArr, modeArgument[0]), modeArgument[1]) // modeArgument = [documentID, toBeSavedData]
+    else if (mode == "getMeDocs") return await getDocs(collection(db, pathArr.join('/'))) // No modeArgument needed
+}
