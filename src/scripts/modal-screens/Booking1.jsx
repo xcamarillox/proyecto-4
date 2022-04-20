@@ -28,9 +28,9 @@ const Booking1 =  () => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col sm>
           <Form.Group className="mb-2" controlId="adultsNumber">
-              <Form.Label># de Adultos (12+):</Form.Label>
+              <Form.Label>Núm. de Adultos (12+):</Form.Label>
               <Form.Select aria-label="Default select example" onChange={ handleChangeOnControl } value={ bookingData.adultsNumber }>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -41,9 +41,9 @@ const Booking1 =  () => {
               </Form.Select>
           </Form.Group>
         </Col>
-        <Col>
+        <Col sm>
           <Form.Group className="mb-2" controlId="kidsNumber">
-              <Form.Label># de Niños (4 - 12):</Form.Label>
+              <Form.Label>Núm. de Niños (4 - 12):</Form.Label>
               <Form.Select aria-label="Default select example" onChange={ handleChangeOnControl } value={ bookingData.kidsNumber }>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -55,9 +55,9 @@ const Booking1 =  () => {
               </Form.Select>
           </Form.Group>
         </Col>
-        <Col>
+        <Col sm>
           <Form.Group className="mb-2" controlId="toddlersNumber">
-              <Form.Label># de Bebés (0 - 3):</Form.Label>
+              <Form.Label>Núm. de Bebés (0 - 3):</Form.Label>
               <Form.Select aria-label="Default select example" onChange={ handleChangeOnControl } value={ bookingData.toddlersNumber }>
                 <option value="0">0</option>
                 <option value="1">1</option>

@@ -26,7 +26,7 @@ export function AppProvider({children}) {
     }, []);
 
     const makeABooking = initObj => {
-      const mode = currentUser ? "createBooking" : "sign";
+      const mode = currentUser ? "makeBooking" : "sign";
       setModalData({ isModalShowing: true, modalMode: mode, initObj:initObj })
       if (!currentUser) makeAToast('i', 'Accede y reserva');
     }

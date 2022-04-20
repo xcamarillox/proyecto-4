@@ -25,8 +25,7 @@ const MyModal = () => {
 
   //****************LIFECYCLE****************//
   useEffect(() => {
-    if (initObj)
-      setBookingData(initObj)
+    if (initObj) setBookingData(initObj)
     else
       setBookingData({ 
         dateSelection: new Date().toISOString().split('T')[0],
@@ -43,7 +42,8 @@ const MyModal = () => {
         comments:""
       });
     setIsNextDisabled(false)
-    if (modalMode == "createBooking") setModalSetup({ title:"Nueva Reservación", page: 1 })
+    if (modalMode == "makeBooking" && initObj) setModalSetup({ title:"Actualiza tu Reservación", page: 1 })
+    else if (modalMode == "makeBooking") setModalSetup({ title:"Nueva Reservación", page: 1 })
     else if (modalMode == "listBookings") setModalSetup({ title:"Lista de Reservaciones", page: 1 }) 
     else if (modalMode == "sign") setModalSetup({ title:"", page: 1 }) 
   }, [isModalShowing, modalMode]);
@@ -55,8 +55,8 @@ const MyModal = () => {
   }
   const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
   const handleNextClick = async () => {
-    if (page == 1 && modalMode == "createBooking") setIsNextDisabled(true)
-    if (page == 4 && modalMode == "createBooking") {
+    if (page == 1 && modalMode == "makeBooking") setIsNextDisabled(true)
+    if (page == 4 && modalMode == "makeBooking") {
       try{
         if (bookingData.docID) 
         {
@@ -92,15 +92,15 @@ const MyModal = () => {
         }
         <Modal.Body>
           { modalMode == "sign" && <SignForm /> }
-          { modalMode == "createBooking" && page==1 && <Booking1/> }
-          { modalMode == "createBooking" && page==2 && <Booking2 setIsNextDisabled={ setIsNextDisabled } /> }
-          { modalMode == "createBooking" && page==3 && <Booking3/> }
-          { modalMode == "createBooking" && page==4 && <BookingSummary/> }
+          { modalMode == "makeBooking" && page==1 && <Booking1/> }
+          { modalMode == "makeBooking" && page==2 && <Booking2 setIsNextDisabled={ setIsNextDisabled } /> }
+          { modalMode == "makeBooking" && page==3 && <Booking3/> }
+          { modalMode == "makeBooking" && page==4 && <BookingSummary/> }
           { modalMode == "listBookings" && <ListBookings/> }
         </Modal.Body>
         { modalMode != "sign" &&
             <Modal.Footer className={page !=1 && 'justify-content-between'}>
-              { (modalMode == "createBooking"  && page>1) &&
+              { (modalMode == "makeBooking"  && page>1) &&
                 <div>
                   <Button className="btn btn-secondary" onClick={handleBeforeClick}>&lt;&lt; Anterior</Button>
                 </div>

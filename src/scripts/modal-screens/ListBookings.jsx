@@ -46,7 +46,6 @@ export const ListBookings = () => {
     }
     let handleUpdateClick = (e) => {
         let index= e.currentTarget.dataset.idx;
-        console.log(bookingsArr[index])
         makeABooking(bookingsArr[index]);
     }
     return (

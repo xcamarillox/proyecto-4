@@ -87,7 +87,7 @@ const SignForm =  () => {
               </Col>
               <Col md>
                 <Form.Group className="mb-2" controlId="mobileNumber">
-                  <Form.Label>Numero Telefónico *</Form.Label>
+                  <Form.Label>Núm. de Teléfono *</Form.Label>
                   <Form.Control placeholder="1234567890" />
                 </Form.Group>
               </Col>
