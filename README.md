@@ -20,7 +20,7 @@ En el Backend se utiliza **Firebase/Firestore**, servicio de **Google** que resu
  - Componentes bajo **"Hooks"**. (Se utilizan useState, useEffect, useContext y useRef).
  - Uso de props con React.
  - Uso de los servicios de autenticación de **Firebase** (sign Up, sign In y sign Out).
- - Se añade la funcionalidad de autenticación con Google y recuperación de cuenta con correo.
+ - Uso de la funcionalidad de autenticación con Google y recuperación de cuenta con correo.
  - Uso de los servicios de la **Firestore** (CRUD de datos).
  - CSS para el aspecto visual de componentes.
  - Adaptado a móviles.
@@ -52,7 +52,7 @@ In the Backend, **Firebase/Firestore** is used, a **Google** service that is an 
 - Components under **"Hooks"**. (useState, useEffect, useContext, and useRef are used.)
 - Use of props with React.
 - Use of **Firebase** authentication services (sign Up, sign In and sign Out).
-- The functionality of authentication with Google and account recovery with email is added.
+- Use of the functionality of authentication with Google and account recovery with email.
 - Use of **Firestore** services (data CRUD).
 - CSS for the visual appearance of components.
 - Adapted to mobiles.
