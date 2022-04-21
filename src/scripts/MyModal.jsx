@@ -20,13 +20,20 @@ const MyModal = () => {
   const { currentUser } = getContextType('AuthContext')
   const { 
     modalData:{ isModalShowing, modalMode, initObj }, 
-    setModalData, bookingData, setBookingData 
+    setModalData, bookingData, setBookingData, makeABooking 
   } = getContextType('ModalContext')
 
   //****************LIFECYCLE****************//
-  useEffect(() => {
-    if (initObj) setBookingData(initObj)
-    else
+  useEffect(async () => {
+    let dataArr = [];
+    if (initObj && initObj.docID) setBookingData(initObj)
+    else {
+      if (currentUser && !initObj && modalMode!="listBookings"){
+        try{
+            let snap = await crudServerActions('getMeDocs',['bookings', currentUser.uid, 'myBookings']);
+            snap.forEach((doc) => dataArr.push({...doc.data(), docID: doc.id}));
+        }catch(error){ console.log(error) }
+      }
       setBookingData({ 
         dateSelection: new Date().toISOString().split('T')[0],
         adultsNumber: 1, 
@@ -41,11 +48,13 @@ const MyModal = () => {
         tipoLinea:'celular',
         comments:""
       });
+    }
     setIsNextDisabled(false)
-    if (modalMode == "makeBooking" && initObj) setModalSetup({ title:"Actualiza tu Reservación", page: 1 })
-    else if (modalMode == "makeBooking") setModalSetup({ title:"Nueva Reservación", page: 1 })
+    if (modalMode == "sign") setModalSetup({ title:"", page: 1 }) 
     else if (modalMode == "listBookings") setModalSetup({ title:"Lista de Reservaciones", page: 1 }) 
-    else if (modalMode == "sign") setModalSetup({ title:"", page: 1 }) 
+    else if (modalMode == "makeBooking" && initObj && initObj.docID) setModalSetup({ title:"Actualiza tu Reservación", page: 1 })
+    else if (modalMode == "makeBooking" && dataArr.length==0 && isModalShowing) setModalSetup({ title:"Nueva Reservación", page: 1 })
+    else if (modalMode == "makeBooking" && dataArr.length!=0 && isModalShowing) setModalData({ isModalShowing, modalMode:"listBookings"} )
   }, [isModalShowing, modalMode]);
   
   //****************HANDLERS****************//
@@ -54,6 +63,10 @@ const MyModal = () => {
     setModalSetup({ title, page: page - 1})
   }
   const handleClose = () => setModalData({ modalMode, isModalShowing: !isModalShowing });
+  const handleNewBooking = () => {
+    handleClose();
+    makeABooking({});
+  }
   const handleNextClick = async () => {
     if (page == 1 && modalMode == "makeBooking") setIsNextDisabled(true)
     if (page == 4 && modalMode == "makeBooking") {
@@ -109,6 +122,9 @@ const MyModal = () => {
                 <Button onClick={handleClose} className="btn btn-secondary me-3">Cerrar</Button>
                 { modalMode != "listBookings" &&
                   <Button onClick={handleNextClick} className="btn btn-primary" disabled={isNextDisabled}>{page !=4  ? 'Continuar': 'Aceptar'}</Button>
+                }
+                { modalMode == "listBookings" &&
+                  <Button onClick={handleNewBooking} className="btn btn-primary">Nueva Reservación</Button>
                 }
               </div>
             </Modal.Footer>

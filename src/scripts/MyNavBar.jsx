@@ -25,8 +25,10 @@ const MyNavBar =  () => {
     })
   }, [])
 
-  let handleShowModal = () => makeASign();
-  let showBookingsHandle = () => showBookingsList()
+  let warningHandle = () => {
+    makeAToast('i', 'Aún no se implementa esta opción (jeje), pero puedes revisar las reservaciones o cerrar sesión...');
+    showBookingsList();
+  }
   let closeSessionHandle = async () => {
     try{
       await signServerActions('signOut')
@@ -58,15 +60,15 @@ const MyNavBar =  () => {
             <Nav.Link as={ HashLink } smooth to='/home#contact-us'>Contacto</Nav.Link>
             <Nav.Link as={ HashLink } smooth to='/blog#top'>Blog</Nav.Link>
             { !currentUser && 
-              <Nav.Link onClick={ handleShowModal } className="nowrap" id="navbar-login" >
+              <Nav.Link onClick={ makeASign } className="nowrap" id="navbar-login" >
                 <FontAwesomeIcon icon={ faUser } /> Acceder
               </Nav.Link>
             }
             { currentUser &&
               <NavDropdown title={<FontAwesomeIcon icon={ faCircleUser } className="fa-xl" />} id="collasible-nav-dropdown">
-                <NavDropdown.Item>Mi Perfil</NavDropdown.Item>
-                <NavDropdown.Item>Mis pedidos</NavDropdown.Item>
-                <NavDropdown.Item as={ Button }  onClick={showBookingsHandle} >Mis reservaciones</NavDropdown.Item>
+                <NavDropdown.Item onClick={warningHandle}>Mi Perfil</NavDropdown.Item>
+                <NavDropdown.Item onClick={warningHandle}>Mis promociones</NavDropdown.Item>
+                <NavDropdown.Item as={ Button }  onClick={showBookingsList} >Mis reservaciones</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={ Button }  onClick={closeSessionHandle} >Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
