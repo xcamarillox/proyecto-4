@@ -74,6 +74,11 @@ const Booking3 =  () => {
           />
         </Form.Group>
       </Row>
+      <Row>
+        <div>
+            Información necesaria marcada con un *
+        </div>
+      </Row>
     </Form>
   )
 }

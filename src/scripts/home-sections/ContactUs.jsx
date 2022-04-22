@@ -1,8 +1,25 @@
+import { useState, useRef } from "react";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
+import { makeAToast } from '../modal-screens/toast-maker'
 
 const ContactUs =  () => {
+    const [isSendDisabled, setIsSendDisabled] = useState(true)
+    const emailRef = useRef();
+    const messageRef = useRef();
+
+    const handleInputChange = (e) => {
+        if (e.target.value.trim().length!=0 ) setIsSendDisabled(false);
+        else setIsSendDisabled(true)
+    }
+
+    const handlingSendMessage = (e) => {
+        e.preventDefault()
+        if (emailRef.current) emailRef.current.value='';
+        if (messageRef.current) messageRef.current.value='';
+        makeAToast('s', 'Gracias por tu mensaje')
+    }
     return (
         <footer className="contactus-container" id="contact-us">
             <div className="contactus-header">
@@ -29,23 +46,29 @@ const ContactUs =  () => {
                    </div>
                    <div className="contactus-col">
                        <h4 className="main">Mensaje Exprés</h4>
-                       <Form onSubmit={ (e) => { e.preventDefault() }}>
+                       <Form onSubmit={ handlingSendMessage }>
                         <Form.Group className="mb-2" controlId="lastName">
-                            <Form.Control className="contactus" placeholder="Ingresa tu correo (te contactamos en breve)." />
+                            <Form.Control 
+                            className="contactus" type='email' 
+                            onChange={ handleInputChange } 
+                            placeholder="Ingresa tu correo (te contactamos en breve)." 
+                            ref={ emailRef }/>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="comments">
                         <Form.Control
                             className="contactus"
                             as="textarea"
-                            placeholder="Déjanos tu comentario, duda ó sugerencia. Acá puedes colocar más formas de contactarte."
+                            ref={ messageRef }
+                            placeholder="Déjanos tu comentario, duda ó sugerencia.
+                             Acá puedes colocar más formas de contactarte."
                         />
                         </Form.Group>
                             <div className="d-grid gap-2">
-                                <Button type="submit" variant="outline-light">
+                                <Button type="submit" variant="outline-light" disabled={ isSendDisabled }>
                                     Enviar Mensaje
                                 </Button>
                             </div>
-                        </Form>
+                       </Form>
                    </div>
             </div>
             <div className="contactus-footer">

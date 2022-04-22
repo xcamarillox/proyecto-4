@@ -69,6 +69,15 @@ const MyModal = () => {
   }
   const handleNextClick = async () => {
     if (page == 1 && modalMode == "makeBooking") setIsNextDisabled(true)
+    if (page == 3 && modalMode == "makeBooking") {
+      const validationAction = (toastText) => {
+        makeAToast('d', toastText);
+        return true
+      }
+      if (bookingData.name.trim().length==0) return validationAction('Tu nombre es necesario')
+      else if (bookingData.lastName.trim().length==0) return  validationAction('Tu apellido es necesario')
+      else if (bookingData.mobileNumber.trim().length==0) return  validationAction('Tu Num. de Telefono es necesario')
+    }
     if (page == 4 && modalMode == "makeBooking") {
       try{
         if (bookingData.docID) 

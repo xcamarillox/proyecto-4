@@ -15,13 +15,55 @@ import { getContextType } from '../context/AppContext';
 const SignForm =  () => {
   let [modalSignMode, setModalSignMode] = useState('signIn');
   const { modalData: { isModalShowing, modalMode } , setModalData } = getContextType('ModalContext')
+  const nameRef = useRef();
+  const lastNameRef = useRef();
+  const mobileNumberRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+
+  const validationFunc = () => {
+    const validationAction = (toastText, refToFocus) => {
+      makeAToast('d', toastText);
+      refToFocus.current.focus();
+      return true
+    }
+    if (emailRef.current.value.trim().length==0) 
+      return validationAction('Coloca un correo electrónico', emailRef)
+    if (modalSignMode!='signForgot'){
+      if (passwordRef.current.value.length==0) 
+        return validationAction('Coloca una contraseña', passwordRef)
+      else if (passwordRef.current.value.length<6) 
+        return validationAction('Tu contraseña debe tener al menos seis caracteres', passwordRef)
+    } 
+    if (modalSignMode=='signUp'){
+      if (passwordConfirmRef.current.value.trim().length==0) 
+        return validationAction('La confirmación de contraseña es necesaria', passwordConfirmRef)
+      else if (passwordConfirmRef.current.value.trim() != passwordRef.current.value.trim()) 
+        return validationAction('El campo Contraseña y el de confirmación de contraseña no coinciden', passwordRef)
+      else if (nameRef.current.value.trim().length==0) 
+        return validationAction('Tu nombre es necesario', nameRef)
+      else if (lastNameRef.current.value.trim().length==0) 
+        return  validationAction('Tu apellido es necesario', lastNameRef)
+      else if (mobileNumberRef.current.value.trim().length==0) 
+        return  validationAction('Tu Num. de Telefono es necesario', mobileNumberRef)
+    }
+    return false;
+  }
   
-  let handleSignLink = () => modalSignMode=='signIn' ? setModalSignMode('signUp') : setModalSignMode('signIn');
-  const handleForgotLink= async () => setModalSignMode('signForgot');
+  const handleSignLink = () => {
+    modalSignMode=='signIn' ? setModalSignMode('signUp') : setModalSignMode('signIn');
+    emailRef.current.value='';
+    if (passwordRef.current) passwordRef.current.value='';
+    if (passwordConfirmRef.current) passwordConfirmRef.current.value='';
+  }
+  const handleForgotLink= async () => {
+    setModalSignMode('signForgot');
+    emailRef.current.value='';
+  }
   const handleSignAction= async (e) => {
     e.preventDefault();
+    if (e.type == "submit" && validationFunc()) return;
     let toastText;
     if (modalSignMode == 'signUp') toastText = 'Usuario creado. Accede.';
     else if (modalSignMode == 'signIn') toastText =  'Bienvenido!!';
@@ -32,7 +74,7 @@ const SignForm =  () => {
       modalSignMode != 'signForgot' ? passwordRef.current.value : ''
     ]
     try{
-      let response = await signServerActions(...serverParams);
+      await signServerActions(...serverParams);
       makeAToast('s', toastText);
       if (modalSignMode != 'signIn' ) setModalSignMode('signIn');
       else setModalData({ isModalShowing: false, modalMode });
@@ -68,13 +110,13 @@ const SignForm =  () => {
               <Col md>
                 <Form.Group className="mb-2" controlId="name">
                     <Form.Label>Nombre(s) *</Form.Label>
-                    <Form.Control placeholder="Ingresa tu(s) nombre(s)" />
+                    <Form.Control placeholder="Ingresa tu(s) nombre(s)" ref={nameRef} />
                 </Form.Group>
               </Col>
               <Col md>
                 <Form.Group className="mb-2" controlId="lastName">
                     <Form.Label>Apellido(s) *</Form.Label>
-                    <Form.Control placeholder="Ingresa tu(s) apellido(s)" />
+                    <Form.Control placeholder="Ingresa tu(s) apellido(s)" ref={lastNameRef} />
                 </Form.Group>
               </Col>
             </Row>
@@ -88,7 +130,7 @@ const SignForm =  () => {
               <Col md>
                 <Form.Group className="mb-2" controlId="mobileNumber">
                   <Form.Label>Núm. de Teléfono *</Form.Label>
-                  <Form.Control placeholder="1234567890" />
+                  <Form.Control placeholder="1234567890" ref={mobileNumberRef} />
                 </Form.Group>
               </Col>
               <Col md>
@@ -120,11 +162,18 @@ const SignForm =  () => {
             <Col md>
               <Form.Group className="mb-2" controlId="passwordConfirm">
                 <Form.Label>Confirma tu Contraseña *</Form.Label>
-                <Form.Control type="password" placeholder="Confirma tu Contraseña" />
+                <Form.Control type="password" placeholder="Confirma tu Contraseña" ref={passwordConfirmRef} />
               </Form.Group>
             </Col>
           }
         </Row>
+        { modalSignMode=='signUp' &&
+          <Row>
+            <div>
+              Información necesaria marcada con un *
+            </div>
+          </Row>
+        }
         {modalSignMode=='signIn' &&
           <p className="text-center">
              <Link to='#' onClick={ handleForgotLink }>Olvidaste tu contraseña?</Link>
