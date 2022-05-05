@@ -25,7 +25,15 @@ En el Backend se utiliza **Firebase/Firestore**, servicio de **Google** que resu
  - CSS para el aspecto visual de componentes.
  - Adaptado a móviles.
 
-
+### Pasos para su puesta en marcha de forma local
+ **- Requerimientos:** Solamente el **archivo .env** que previamente te haré llegar. Si no cuentas con el archivo y estas interesado en el proyecto contactamente y con gusto te lo hago llegar. De todas maneras puedes revizar el **live demo**, te aseguro que funciona exactamente igual.
+ 1. En consola ejecuta: **git clone [https://github.com/xcamarillox/proyecto-4](https://github.com/xcamarillox/proyecto-4)** o bien puedes acceder en tu navegador a [https://github.com/xcamarillox/proyecto-4](https://github.com/xcamarillox/proyecto-4). En el apartado de code, seleccionar download ZIP. Esto ultimo si no te interesa el historial de commits o la data de GIT (no tan recomendable).
+ 2. Coloca el archivo **.env** en el directorio raíz del proyecto (en el mismo lugar está el package.json). Este archivo protege las claves privadas y se te proporciona de antemano (no se incluye al proyecto de GIT/GITHUB por ese motivo).
+ 3. En consola dirigete al directorio raíz del proyecto y ejecuta **npm install**
+ 4. En consola ejecuta: **npm start**
+ 5. Abre tu navegador y coloca **http://localhost:1234/** en la barra de dirección. Parcel genera esa dirección generalmente, si no funciona coloca la dirección que te menciona la terminal.
+ 6. Listo, ahora puedes hacer pruebas del proyecto. Si adicionalmente se busca hacer un deploy ejecuta en consola: **npm run build**
+ 
 - [live demo](https://xcamarillox.github.io/proyecto-4/index.html)
 
 _________________
@@ -57,5 +65,14 @@ In the Backend, **Firebase/Firestore** is used, a **Google** service that is an 
 - CSS for the visual appearance of components.
 - Adapted to mobiles.
 
+### Steps for its local implementation
+
+ **- Requirements:** Only the **.env file** that I will send you previously. If you do not have the file and you are interested in  the project, contact me and I will gladly send it to you. Anyway you can review the **live demo**, I assure you that it works  exactly the same.
+ 1. In console execute: **git clone [https://github.com/xcamarillox/proyecto-4](https://github.com/xcamarillox/proyecto-4)** or you can access on your web browser to [https://github.com/xcamarillox/proyecto-4](https://github.com/xcamarillox/proyecto-4). In the code section, select download ZIP. The latter if you are not interested in commit history or GIT data (not so recommended).
+ 2. Place the **.env** file in the root directory of the project (in the same place is the package.json). This file protects the private keys and is provided to you in advance (it is not included in the GIT/GITHUB project for that reason).
+ 3. In console go to the root directory of the project and run **npm install**
+ 4. In console execute: **npm start**
+ 5. Open your browser and put **http://localhost:1234/** in the address bar. Parcel generally generates that address, if it doesn't work, put the address that the terminal mentions.
+ 6. Ready, you can now test the project. If additionally you want to do a deploy, run in the console: **npm run build**
 
 - [live demo](https://xcamarillox.github.io/proyecto-4/index.html)
